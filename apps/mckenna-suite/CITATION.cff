@@ -6,6 +6,11 @@ authors:
   - family-names: "Dockery"
     given-names: "Kenneth L."
     alias: "ZEUX"
+doi: "10.5281/zenodo.24412916"
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.24412916"
+    description: "Zenodo archive for v1.0.0 release"
 repository-code: "https://github.com/Zulandratronics/mckenna-coherence-suite"
 url: "https://zulandratronics.github.io/mckenna-coherence-suite/"
 abstract: >-

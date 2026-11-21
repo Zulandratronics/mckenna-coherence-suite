@@ -2,6 +2,7 @@
 
 [![CI — McKenna Coherence Suite](https://github.com/Zulandratronics/mckenna-coherence-suite/actions/workflows/ci.yml/badge.svg)](https://github.com/Zulandratronics/mckenna-coherence-suite/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](./LICENSE)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24412916.svg)](https://doi.org/10.5281/zenodo.24412916)
 
 **Live Offline-Capable Web Demo:** [https://zulandratronics.github.io/mckenna-coherence-suite/](https://zulandratronics.github.io/mckenna-coherence-suite/)  
 **Engineering Preprint:** [Control-Token Syntax Degradation, Role-Boundary Collapse, and Narrative Attractor Sinks in Unprompted LLMs](./docs/preprint-llm-entity-boundary-degradation.md)

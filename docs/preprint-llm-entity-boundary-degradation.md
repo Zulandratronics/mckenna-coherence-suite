@@ -3,6 +3,7 @@
 **Author:** Kenneth L. Dockery (Independent AI Safety Researcher)  
 **Date:** November 2026 *(Primary Observation Log: October 31, 2026)*  
 **License:** Text CC-BY-4.0 · Companion Reference Software MIT (`mckenna-coherence-suite`)  
+**DOI:** [10.5281/zenodo.24412916](https://doi.org/10.5281/zenodo.24412916)  
 **Repository:** [https://github.com/Zulandratronics/mckenna-coherence-suite](https://github.com/Zulandratronics/mckenna-coherence-suite)  
 **Live Reference Scanner:** [https://zulandratronics.github.io/mckenna-coherence-suite/](https://zulandratronics.github.io/mckenna-coherence-suite/)
 
@@ -123,4 +124,4 @@ Our planned open-source follow-on evaluation harness (`boundary-collapse-eval`) 
 All reference code, automated unit tests (`tests/`), and the offline browser scanner are released under the MIT License (see [`CITATION.cff`](../CITATION.cff) for machine-readable citation metadata).
 
 **Suggested Citation:**
-> Dockery, K. L. (2026). *Control-Token Syntax Degradation, Role-Boundary Collapse, and Narrative Attractor Sinks in Unprompted Large Language Models*. Independent Research Preprint & MIT Reference Implementation (`mckenna-coherence-suite`, v1.0.0). Available at: https://github.com/Zulandratronics/mckenna-coherence-suite
+> Dockery, K. L. (2026). *Control-Token Syntax Degradation, Role-Boundary Collapse, and Narrative Attractor Sinks in Unprompted Large Language Models*. Independent Research Preprint & MIT Reference Implementation (`mckenna-coherence-suite`, v1.0.0). Zenodo. https://doi.org/10.5281/zenodo.24412916
