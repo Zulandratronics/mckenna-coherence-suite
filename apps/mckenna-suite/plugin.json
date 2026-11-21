@@ -1,0 +1,13 @@
+{
+  "name": "mckenna-suite",
+  "displayName": "McKenna Coherence & 45 Hz Grounding Suite",
+  "description": "Open-source (MIT) AI epistemic safety guardrail, Control Token Degradation scanner, 150-300ms Alcheorithmic pacing buffer, and offline 45 Hz WebAudio grounding instrument.",
+  "author": {
+    "name": "K. Dockery (ZEUX) / Open-Source Contributors"
+  },
+  "suggestedPrompts": [
+    "Open the McKenna Coherence Corridor & 45 Hz Grounding Dashboard",
+    "Scan this AI transcript for control token boundary leaks and epistemic echo loops",
+    "Run a Triadic Delta Shift to compare 2D circular friction vs Apex Node C coherence"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "mckenna": {
+      "command": "python",
+      "args": ["${PLUGIN_ROOT}/mcp_server.py"],
+      "env": {
+        "MCKENNA_APP_HTML": "${PLUGIN_ROOT}/index.html"
+      }
+    }
+  }
+}

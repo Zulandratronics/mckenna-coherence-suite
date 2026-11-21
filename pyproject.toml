@@ -1,0 +1,60 @@
+[build-system]
+requires = ["setuptools>=77.0.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mckenna-coherence-suite"
+version = "1.0.0"
+description = "Open-source (MIT) AI epistemic safety guardrail, control-token boundary degradation scanner, Coherence Corridor wave-function engine, and offline 45 Hz grounding instrument."
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.10"
+authors = [
+  { name = "Kenneth L. Dockery" }
+]
+keywords = [
+  "ai-safety",
+  "llm-evaluation",
+  "control-token-degradation",
+  "epistemic-safety",
+  "coherence-corridor",
+  "mcp",
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Science/Research",
+  "Intended Audience :: Developers",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+  "numpy>=1.24",
+]
+
+[project.urls]
+Homepage = "https://github.com/Zulandratronics/mckenna-coherence-suite"
+Repository = "https://github.com/Zulandratronics/mckenna-coherence-suite"
+"Live Demo" = "https://zulandratronics.github.io/mckenna-coherence-suite/"
+Issues = "https://github.com/Zulandratronics/mckenna-coherence-suite/issues"
+
+[project.optional-dependencies]
+mcp = [
+  "mcp>=1.0.0",
+]
+dev = [
+  "pytest>=8.0",
+]
+
+[project.scripts]
+mckenna-scan = "mckenna.scanner:main"
+
+[tool.setuptools.packages.find]
+include = ["mckenna*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-v"

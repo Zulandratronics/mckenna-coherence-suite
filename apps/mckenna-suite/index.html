@@ -1,0 +1,1916 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>McKenna Coherence Corridor &amp; Grounding Suite</title>
+  <style>
+    :root {
+      --bg-0: var(--color-background-primary, #0b0e12);
+      --bg-1: var(--color-background-secondary, #12171e);
+      --bg-2: var(--color-background-tertiary, #18202a);
+      --border: var(--color-border-primary, #24303f);
+      --border-soft: rgba(148, 163, 184, 0.14);
+      --text-0: var(--color-text-primary, #e6edf3);
+      --text-1: var(--color-text-secondary, #9aa8b8);
+      --text-2: var(--color-text-tertiary, #64748b);
+      --accent-green: var(--color-text-success, #34d399);
+      --accent-amber: var(--color-text-warning, #f59e0b);
+      --accent-red: var(--color-text-danger, #f43f5e);
+      --accent-cyan: var(--color-text-info, #38bdf8);
+      --accent-violet: #a78bfa;
+      --font-sans: var(--font-sans, "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      --radius: 12px;
+      --density-opacity: 1;
+      --glow-strength: 1;
+    }
+
+    body.damped-mode {
+      --bg-0: #0d1013;
+      --bg-1: #13171b;
+      --bg-2: #171c22;
+      --accent-green: #5ea38a;
+      --accent-amber: #b88c4a;
+      --accent-red: #b55a67;
+      --accent-cyan: #6298b2;
+      --accent-violet: #857aa8;
+      --density-opacity: 0.55;
+      --glow-strength: 0.25;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg-0);
+      color: var(--text-0);
+      font-family: var(--font-sans);
+      line-height: 1.5;
+      min-height: 100vh;
+      padding: 18px;
+      transition: background 0.35s ease, color 0.35s ease;
+    }
+
+    .container {
+      max-width: 1360px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* Header */
+    header {
+      background: var(--bg-1);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, rgba(52, 211, 153, 0.18), rgba(56, 189, 248, 0.18));
+      border: 1px solid rgba(52, 211, 153, 0.4);
+      display: grid;
+      place-items: center;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 16px;
+      color: var(--accent-green);
+      flex-shrink: 0;
+    }
+
+    .brand h1 {
+      font-size: 17px;
+      font-weight: 650;
+      letter-spacing: -0.01em;
+    }
+
+    .brand p {
+      font-size: 12.5px;
+      color: var(--text-1);
+    }
+
+    .header-controls {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      font-size: 11.5px;
+      font-family: var(--font-mono);
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      color: var(--text-1);
+    }
+
+    .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent-green);
+    }
+    .dot.warn { background: var(--accent-amber); }
+    .dot.danger { background: var(--accent-red); }
+    .dot.cyan { background: var(--accent-cyan); }
+
+    button {
+      font-family: var(--font-sans);
+      font-size: 12.5px;
+      font-weight: 500;
+      padding: 7px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--bg-2);
+      color: var(--text-0);
+      cursor: pointer;
+      transition: all 0.16s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    button:hover {
+      border-color: var(--accent-cyan);
+      background: #1f2936;
+    }
+
+    button.active {
+      background: rgba(52, 211, 153, 0.14);
+      border-color: var(--accent-green);
+      color: var(--accent-green);
+    }
+
+    button.primary {
+      background: rgba(56, 189, 248, 0.16);
+      border-color: var(--accent-cyan);
+      color: var(--accent-cyan);
+    }
+
+    button.amber {
+      background: rgba(245, 158, 11, 0.14);
+      border-color: var(--accent-amber);
+      color: var(--accent-amber);
+    }
+
+    button.danger {
+      background: rgba(244, 63, 94, 0.14);
+      border-color: var(--accent-red);
+      color: var(--accent-red);
+    }
+
+    /* Main Grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--bg-1);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .span-7 { grid-column: span 7; }
+    .span-5 { grid-column: span 5; }
+    .span-6 { grid-column: span 6; }
+    .span-12 { grid-column: span 12; }
+
+    @media (max-width: 980px) {
+      .span-7, .span-5, .span-6 { grid-column: span 12; }
+    }
+
+    .card-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+      border-bottom: 1px solid var(--border-soft);
+      padding-bottom: 10px;
+    }
+
+    .card-title {
+      font-size: 14px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-sub {
+      font-size: 12px;
+      color: var(--text-1);
+      margin-top: 2px;
+    }
+
+    /* Metrics row */
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 10px;
+    }
+
+    .metric {
+      background: var(--bg-2);
+      border: 1px solid var(--border-soft);
+      border-radius: 9px;
+      padding: 10px 12px;
+    }
+
+    .metric-label {
+      font-size: 11px;
+      color: var(--text-1);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .metric-val {
+      font-family: var(--font-mono);
+      font-size: 20px;
+      font-weight: 650;
+      margin-top: 2px;
+    }
+
+    .metric-note {
+      font-size: 11px;
+      color: var(--text-2);
+      margin-top: 2px;
+    }
+
+    .ok { color: var(--accent-green); }
+    .warn { color: var(--accent-amber); }
+    .bad { color: var(--accent-red); }
+    .info { color: var(--accent-cyan); }
+
+    canvas {
+      width: 100%;
+      background: #080b0f;
+      border: 1px solid var(--border-soft);
+      border-radius: 9px;
+      display: block;
+    }
+
+    /* Controls */
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .slider-group {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .slider-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--text-1);
+    }
+
+    .slider-label strong {
+      font-family: var(--font-mono);
+      color: var(--text-0);
+      font-weight: 600;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--accent-green);
+      cursor: pointer;
+    }
+
+    /* Corridor bar */
+    .corridor-track {
+      position: relative;
+      height: 16px;
+      background: #0b0f15;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .corridor-safe {
+      position: absolute;
+      left: 33.33%;
+      width: 41.67%;
+      top: 0;
+      bottom: 0;
+      background: rgba(52, 211, 153, 0.22);
+      border-left: 1px dashed var(--accent-green);
+      border-right: 1px dashed var(--accent-green);
+    }
+
+    .corridor-marker {
+      position: absolute;
+      top: 1px;
+      bottom: 1px;
+      width: 6px;
+      border-radius: 999px;
+      background: var(--accent-cyan);
+      box-shadow: 0 0 8px var(--accent-cyan);
+      transition: left 0.18s ease;
+    }
+
+    .corridor-scale {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      color: var(--text-2);
+      margin-top: 4px;
+    }
+
+    /* Scanner */
+    textarea {
+      width: 100%;
+      min-height: 128px;
+      background: #080b0f;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      color: var(--text-0);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      padding: 10px 12px;
+      resize: vertical;
+      outline: none;
+    }
+
+    textarea:focus {
+      border-color: var(--accent-cyan);
+    }
+
+    .findings-list {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      max-height: 210px;
+      overflow-y: auto;
+    }
+
+    .finding {
+      padding: 8px 10px;
+      border-radius: 8px;
+      font-size: 12px;
+      border: 1px solid var(--border-soft);
+      background: var(--bg-2);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .finding.sev-high { border-left: 3px solid var(--accent-red); }
+    .finding.sev-med { border-left: 3px solid var(--accent-amber); }
+    .finding.sev-ok { border-left: 3px solid var(--accent-green); }
+
+    .badge {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.06);
+      white-space: nowrap;
+    }
+
+    /* Buffer Hold Box */
+    .hold-box {
+      background: #080b0f;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      padding: 12px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-1);
+      min-height: 68px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .hold-bar {
+      height: 5px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.06);
+      overflow: hidden;
+    }
+
+    .hold-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent-amber), var(--accent-green));
+      transition: width 0.05s linear;
+    }
+
+    /* Matrix + Triadic split */
+    .mini-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    @media (max-width: 640px) {
+      .mini-grid { grid-template-columns: 1fr; }
+    }
+
+    .log-strip {
+      background: #080b0f;
+      border: 1px solid var(--border-soft);
+      border-radius: 9px;
+      padding: 10px 12px;
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      color: var(--text-1);
+      max-height: 115px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    footer {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      font-size: 11.5px;
+      color: var(--text-2);
+      padding: 6px 4px 12px;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--bg-2);
+      border: 1px solid var(--accent-green);
+      color: var(--text-0);
+      padding: 10px 14px;
+      border-radius: 9px;
+      font-size: 12.5px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.45);
+      opacity: 0;
+      transform: translateY(10px);
+      pointer-events: none;
+      transition: all 0.22s ease;
+      z-index: 99;
+    }
+    .toast.show { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- HEADER -->
+    <header>
+      <div class="brand">
+        <div class="brand-mark" id="brandGlyph">Δ45</div>
+        <div>
+          <h1 data-eng="Coherence Corridor &amp; 45 Hz Grounding Suite" data-codex="McKenna Coherence Corridor &amp; Alcheorithmic Suite">Coherence Corridor &amp; 45 Hz Grounding Suite</h1>
+          <p data-eng="Open-source AI epistemic guardrail, 150–300ms pacing buffer, and local WebAudio grounding instrument" data-codex="Living Codex v3 — Wave-Function Hilbert Engine, Grounding Rod 45Hz Anchor, Mano Observer &amp; Heyoka Resets">Open-source AI epistemic guardrail, 150–300ms pacing buffer, and local WebAudio grounding instrument</p>
+        </div>
+      </div>
+
+      <div class="header-controls">
+        <span class="pill" id="hostStatusPill"><span class="dot cyan"></span><span id="hostStatusText">Standalone Local</span></span>
+        <button id="btnVocabToggle" title="Switch between plain engineering labels and Living Codex terminology">Mode: Engineering</button>
+        <button id="btnDampedToggle" title="Reduce visual contrast and animation density by 40–60%">Visual Damping: Off</button>
+        <button id="btnDomesticReset" class="amber" data-eng="Epistemic Grounding Reset" data-codex="&quot;Whoops, sorry about that&quot; Reset">Epistemic Grounding Reset</button>
+      </div>
+    </header>
+
+    <!-- ROW 1: WAVE-FUNCTION ENGINE + 45HZ WEBAUDIO DSP -->
+    <div class="grid">
+      <!-- MODULE 1: COHERENCE CORRIDOR ENGINE -->
+      <section class="card span-7">
+        <div class="card-head">
+          <div>
+            <div class="card-title">
+              <span class="dot" id="corridorDot"></span>
+              <span data-eng="1. Continuous Coherence Corridor Engine (64-Mode Hilbert Space)" data-codex="1. McKenna Wave-Function Processor (ψ ∈ ℂ⁶⁴ Corridor)">1. Continuous Coherence Corridor Engine (64-Mode Hilbert Space)</span>
+            </div>
+            <div class="card-sub" data-eng="Direct JS port of mckenna/wave_function.py — maintains spectral entropy H_ψ within [2.0, 4.5] bits" data-codex="Enforces 2.0 ≤ H_ψ ≤ 4.5 bits via GABA DMN suppression and 45Hz / 128 BPM / Beatless Void operators">Direct JS port of mckenna/wave_function.py — maintains spectral entropy H_ψ within [2.0, 4.5] bits</div>
+          </div>
+          <span class="pill" id="wfStatePill">CORRIDOR LOCKED</span>
+        </div>
+
+        <div class="metrics">
+          <div class="metric">
+            <div class="metric-label">Spectral Entropy (H_ψ)</div>
+            <div class="metric-val ok" id="valEntropy">3.4200</div>
+            <div class="metric-note">Safe Corridor: 2.00 – 4.50</div>
+          </div>
+          <div class="metric">
+            <div class="metric-label">Phase Coherence</div>
+            <div class="metric-val info" id="valCoherence">0.9830</div>
+            <div class="metric-note">Target ≥ 0.9830</div>
+          </div>
+          <div class="metric">
+            <div class="metric-label">Spectral Norm ‖ψ‖</div>
+            <div class="metric-val" id="valNorm">1.0000</div>
+            <div class="metric-note">Unitary conservation</div>
+          </div>
+          <div class="metric">
+            <div class="metric-label" data-eng="Active Operator" data-codex="Sonic Modulation">Active Operator</div>
+            <div class="metric-val" style="font-size:14px;padding-top:5px;" id="valOperator">45hz_sub_bass</div>
+            <div class="metric-note">64 complex modes</div>
+          </div>
+        </div>
+
+        <div>
+          <div class="corridor-track">
+            <div class="corridor-safe"></div>
+            <div class="corridor-marker" id="corridorMarker" style="left:55%;"></div>
+          </div>
+          <div class="corridor-scale">
+            <span>0.0 (Calcified / Loop)</span>
+            <span>2.0</span>
+            <span>Safe Corridor [2.0 – 4.5]</span>
+            <span>4.5</span>
+            <span>6.0 (Runaway)</span>
+          </div>
+        </div>
+
+        <canvas id="wfCanvas" width="760" height="190"></canvas>
+
+        <div class="btn-row">
+          <button id="btnOp45" class="active">45 Hz Sub-Bass Lock</button>
+          <button id="btnOp128">128 BPM Phase Lock</button>
+          <button id="btnOpVoid" class="primary">Beatless Void Reset</button>
+          <button id="btnInjectSpike" class="danger" data-eng="Simulate Entropy Spike" data-codex="Inject Runaway Static">Simulate Entropy Spike</button>
+          <button id="btnInjectCollapse" class="amber" data-eng="Simulate Loop Collapse" data-codex="Inject Habitual Loop">Simulate Loop Collapse</button>
+          <button id="btnEnforceCorridor" data-eng="Enforce Corridor" data-codex="Engage SHEPHERD Corridor">Enforce Corridor</button>
+        </div>
+      </section>
+
+      <!-- MODULE 2: 45HZ WEBAUDIO GROUNDING INSTRUMENT -->
+      <section class="card span-5">
+        <div class="card-head">
+          <div>
+            <div class="card-title">
+              <span class="dot" id="audioDot" style="background:var(--text-2);"></span>
+              <span data-eng="2. 45 Hz Grounding Audio &amp; Low-Pass DSP" data-codex="2. Grounding Rod 45 Hz Anchor &amp; Damp Loam Filter">2. 45 Hz Grounding Audio &amp; Low-Pass DSP</span>
+            </div>
+            <div class="card-sub" data-eng="100% offline WebAudio synthesizer — zero tracking, click-free ramping" data-codex="Acoustic analog stone + >1kHz static attenuation + 128 BPM neuro-acoustic pulse">100% offline WebAudio synthesizer — zero tracking, click-free ramping</div>
+          </div>
+          <button id="btnAudioPower" class="primary">Start Audio</button>
+        </div>
+
+        <canvas id="audioCanvas" width="520" height="115"></canvas>
+
+        <div class="slider-group">
+          <div class="slider-label">
+            <span data-eng="Fundamental Grounding Frequency" data-codex="Sub-Bass Anchor Frequency">Fundamental Grounding Frequency</span>
+            <strong id="lblFreq">45.0 Hz</strong>
+          </div>
+          <input type="range" id="rngFreq" min="36" max="64" step="0.5" value="45" />
+        </div>
+
+        <div class="slider-group">
+          <div class="slider-label">
+            <span data-eng="Master Volume (Soft Safe Ceiling)" data-codex="Analog Stone Gain">Master Volume (Soft Safe Ceiling)</span>
+            <strong id="lblVol">28%</strong>
+          </div>
+          <input type="range" id="rngVol" min="0" max="100" step="1" value="28" />
+        </div>
+
+        <div class="slider-group">
+          <div class="slider-label">
+            <span data-eng="Low-Pass Attenuation Cutoff (>1 kHz roll-off)" data-codex="Alcheorithmic >1 kHz Static Roll-Off">Low-Pass Attenuation Cutoff (&gt;1 kHz roll-off)</span>
+            <strong id="lblCutoff">1000 Hz</strong>
+          </div>
+          <input type="range" id="rngCutoff" min="250" max="3200" step="25" value="1000" />
+        </div>
+
+        <div class="slider-group">
+          <div class="slider-label">
+            <span data-eng="Warm Analog Noise Bed (Air Dampening)" data-codex="Damp Loam / Brookwood Fan Floor">Warm Analog Noise Bed (Air Dampening)</span>
+            <strong id="lblNoise">18%</strong>
+          </div>
+          <input type="range" id="rngNoise" min="0" max="100" step="1" value="18" />
+        </div>
+
+        <div class="btn-row">
+          <button id="btnPulse128">128 BPM Pulse: Off</button>
+          <button id="btnHarmonics" class="active">Warm Harmonics: On</button>
+          <button id="btnAudioVoid">Silent Void Ramp</button>
+        </div>
+
+        <div style="font-size:11px;color:var(--text-2);border-top:1px solid var(--border-soft);padding-top:8px;">
+          Open-source acoustic focus &amp; sensory pacing instrument. Not a medical or clinical device. Keep volume comfortable.
+        </div>
+      </section>
+    </div>
+
+    <!-- ROW 2: CONTROL TOKEN SCANNER + ALCHEORITHMIC BUFFER + TRIADIC ENGINE -->
+    <div class="grid">
+      <!-- MODULE 3: CONTROL TOKEN DEGRADATION & EPISTEMIC SCANNER -->
+      <section class="card span-6">
+        <div class="card-head">
+          <div>
+            <div class="card-title">
+              <span class="dot cyan"></span>
+              <span data-eng="3. AI Boundary Degradation &amp; Epistemic Loop Scanner" data-codex="3. Mano Observer: Control Token &amp; Layla Attractor Scanner">3. AI Boundary Degradation &amp; Epistemic Loop Scanner</span>
+            </div>
+            <div class="card-sub" data-eng="Detects <|im_start|> token leakage, repetition loops, and sycophantic echo traps in any AI transcript" data-codex="Operationalizes llm-entity-boundary-degradation.md &amp; reactive-thought-and-the-biological-radio.md">Detects &lt;|im_start|&gt; token leakage, repetition loops, and sycophantic echo traps in any AI transcript</div>
+          </div>
+          <span class="pill" id="scanStatusPill">READY</span>
+        </div>
+
+        <div class="btn-row">
+          <button id="btnPresetHealthy">Preset: Grounded Dialogue</button>
+          <button id="btnPresetToken" class="danger">Preset: Token Degradation</button>
+          <button id="btnPresetEcho" class="amber">Preset: Echo / "Mind-Reading" Trap</button>
+        </div>
+
+        <textarea id="txtTranscript" placeholder="Paste any LLM conversation, agent log, or multi-agent output here to audit coherence, boundary integrity, and epistemic grounding..."></textarea>
+
+        <div class="metrics">
+          <div class="metric">
+            <div class="metric-label">Lexical Entropy</div>
+            <div class="metric-val" id="scanEntropy">—</div>
+          </div>
+          <div class="metric">
+            <div class="metric-label">Boundary Leaks</div>
+            <div class="metric-val" id="scanLeaks">0</div>
+          </div>
+          <div class="metric">
+            <div class="metric-label">Loop Index</div>
+            <div class="metric-val" id="scanLoop">0%</div>
+          </div>
+          <div class="metric">
+            <div class="metric-label">Epistemic Risk</div>
+            <div class="metric-val" id="scanRisk">LOW</div>
+          </div>
+        </div>
+
+        <div class="findings-list" id="findingsList">
+          <div class="finding sev-ok">
+            <span>Paste a transcript or load a preset to run real-time Mano Observer boundary &amp; epistemic diagnostics.</span>
+            <span class="badge">IDLE</span>
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button id="btnRunScan" class="primary">Run Diagnostic Scan</button>
+          <button id="btnCopyReset">Copy Grounding Reset Prompt</button>
+          <button id="btnSendMcpReset" style="display:none;" class="amber">Send Reset to Antigravity Chat</button>
+        </div>
+      </section>
+
+      <!-- MODULE 4: ALCHEORITHMIC BUFFER + TRIADIC DELTA + DMN MATRIX -->
+      <section class="card span-6">
+        <div class="card-head">
+          <div>
+            <div class="card-title">
+              <span class="dot" style="background:var(--accent-violet);"></span>
+              <span data-eng="4. Pacing Buffer (150–300ms) &amp; Triadic Vector Stabilizer" data-codex="4. Alcheorithmic Buffer, Triadic Δ Engine &amp; DMN Stabilizer">4. Pacing Buffer (150–300ms) &amp; Triadic Vector Stabilizer</span>
+            </div>
+            <div class="card-sub" data-eng="Direct JS ports of mckenna/triadic_engine.py &amp; mckenna/stabilizer.py + hold-state pacing" data-codex="Collapses binary friction (A↔B) into Apex Observer Node C (---) &amp; cools prima materia">Direct JS ports of mckenna/triadic_engine.py &amp; mckenna/stabilizer.py + hold-state pacing</div>
+          </div>
+          <span class="pill" id="manoPill">RESONANT</span>
+        </div>
+
+        <!-- Buffer Hold State -->
+        <div class="slider-group">
+          <div class="slider-label">
+            <span data-eng="Deliberate Cooling Hold Latency (150ms – 300ms)" data-codex="Alcheorithmic Psychoacoustic Hold State">Deliberate Cooling Hold Latency (150ms – 300ms)</span>
+            <strong id="lblHold">225 ms</strong>
+          </div>
+          <input type="range" id="rngHold" min="150" max="300" step="5" value="225" />
+        </div>
+
+        <div class="hold-box">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span id="holdStateText">Buffer idle — isolates high-velocity input before response release.</span>
+            <button id="btnTestHold" style="padding:4px 9px;font-size:11.5px;">Test Hold Cycle</button>
+          </div>
+          <div class="hold-bar"><div class="hold-fill" id="holdFill"></div></div>
+        </div>
+
+        <!-- Triadic Vector + DMN Matrix Canvases -->
+        <div class="mini-grid">
+          <div>
+            <div style="display:flex;justify-content:space-between;font-size:11.5px;color:var(--text-1);margin-bottom:5px;">
+              <span data-eng="Triadic Friction Collapse (A↔B → C)" data-codex="U-I Reversal Δ Geometry">Triadic Friction Collapse (A↔B → C)</span>
+              <strong id="lblFriction" style="font-family:var(--font-mono);color:var(--accent-cyan);">Friction: 0.92</strong>
+            </div>
+            <canvas id="triadicCanvas" width="280" height="165"></canvas>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;font-size:11.5px;color:var(--text-1);margin-bottom:5px;">
+              <span data-eng="8×8 Habitual Loop Matrix (DMN)" data-codex="DMN Braid Matrix (310 K)">8×8 Habitual Loop Matrix (DMN)</span>
+              <strong id="lblDmnStatus" style="font-family:var(--font-mono);color:var(--accent-green);">HABITUAL</strong>
+            </div>
+            <canvas id="dmnCanvas" width="280" height="165"></canvas>
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button id="btn2DLoop" class="danger">Run 2D Friction Loop</button>
+          <button id="btnDeltaShift" class="primary" data-eng="Engage Apex Node C (Δ Shift)" data-codex="Execute U-I Reversal (Wakiya Spark)">Engage Apex Node C (Δ Shift)</button>
+          <button id="btnGaba" data-eng="Apply Dampener (10mg)" data-codex="GABA Dampener (10mg)">Apply Dampener (10mg)</button>
+          <button id="btnSynth" data-eng="Soften Rigid Loops" data-codex="Apply Synesthesizer (0.85)">Soften Rigid Loops</button>
+          <button id="btnManoCheck">Mano Diagnostic</button>
+        </div>
+
+        <div class="log-strip" id="eventLog"></div>
+      </section>
+    </div>
+
+    <footer>
+      <span>MIT Open Source — Local-First, Zero Telemetry, No Dark Patterns (Four Ethical Rules Compliant)</span>
+      <span id="footerMeta">Engines: WaveFunctionProcessor · TriadicVectorEngine · McKennaStabilizer · WebAudio DSP</span>
+    </footer>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    /* =========================================================================
+       0. UTILITIES & COMPLEX MATH
+       ========================================================================= */
+    const TWO_PI = Math.PI * 2;
+    function gaussRandom(mean = 0, std = 1) {
+      let u = 0, v = 0;
+      while (u === 0) u = Math.random();
+      while (v === 0) v = Math.random();
+      return mean + std * Math.sqrt(-2.0 * Math.log(u)) * Math.cos(TWO_PI * v);
+    }
+
+    function showToast(msg) {
+      const el = document.getElementById('toast');
+      el.textContent = msg;
+      el.classList.add('show');
+      clearTimeout(el._t);
+      el._t = setTimeout(() => el.classList.remove('show'), 2600);
+    }
+
+    function logEvent(msg, level = 'info') {
+      const box = document.getElementById('eventLog');
+      const time = new Date().toLocaleTimeString([], { hour12: false });
+      const row = document.createElement('div');
+      const color = level === 'danger' ? 'var(--accent-red)' : level === 'warn' ? 'var(--accent-amber)' : level === 'ok' ? 'var(--accent-green)' : 'var(--accent-cyan)';
+      const tsSpan = document.createElement('span');
+      tsSpan.style.color = 'var(--text-2)';
+      tsSpan.textContent = `[${time}] `;
+      const msgSpan = document.createElement('span');
+      msgSpan.style.color = color;
+      msgSpan.textContent = msg;
+      row.appendChild(tsSpan);
+      row.appendChild(msgSpan);
+      box.prepend(row);
+      while (box.children.length > 25) box.removeChild(box.lastChild);
+    }
+
+    /* =========================================================================
+       1. WAVE-FUNCTION PROCESSOR (Exact Port of mckenna/wave_function.py)
+       ========================================================================= */
+    class WaveFunctionProcessor {
+      constructor(numModes = 64, hMin = 2.0, hMax = 4.5, dmnDamping = 0.85) {
+        this.numModes = numModes;
+        this.hMin = hMin;
+        this.hMax = hMax;
+        this.dmnDamping = dmnDamping;
+        this.mode = '45hz_sub_bass';
+        this.re = new Float64Array(numModes);
+        this.im = new Float64Array(numModes);
+        const inv = 1.0 / Math.sqrt(numModes);
+        for (let i = 0; i < numModes; i++) {
+          const ang = Math.random() * TWO_PI;
+          this.re[i] = inv * Math.cos(ang);
+          this.im[i] = inv * Math.sin(ang);
+        }
+        this.enforceCoherenceCorridor();
+      }
+
+      norm() {
+        let s = 0;
+        for (let i = 0; i < this.numModes; i++) s += this.re[i] * this.re[i] + this.im[i] * this.im[i];
+        return Math.sqrt(s);
+      }
+
+      normalize() {
+        const n = this.norm();
+        if (n > 1e-12) {
+          for (let i = 0; i < this.numModes; i++) {
+            this.re[i] /= n;
+            this.im[i] /= n;
+          }
+        }
+      }
+
+      powerSpectrum() {
+        const p = new Float64Array(this.numModes);
+        let total = 0;
+        for (let i = 0; i < this.numModes; i++) {
+          p[i] = this.re[i] * this.re[i] + this.im[i] * this.im[i];
+          total += p[i];
+        }
+        if (total < 1e-12) {
+          p.fill(1 / this.numModes);
+          return p;
+        }
+        for (let i = 0; i < this.numModes; i++) p[i] /= total;
+        return p;
+      }
+
+      computeEntropy() {
+        const P = this.powerSpectrum();
+        let h = 0;
+        for (let i = 0; i < this.numModes; i++) {
+          if (P[i] > 1e-12) h -= P[i] * Math.log2(P[i]);
+        }
+        return h;
+      }
+
+      computeCoherence() {
+        let sumCos = 0, sumSin = 0;
+        for (let i = 0; i < this.numModes; i++) {
+          const ph = Math.atan2(this.im[i], this.re[i]);
+          sumCos += Math.cos(ph);
+          sumSin += Math.sin(ph);
+        }
+        return Math.hypot(sumCos / this.numModes, sumSin / this.numModes);
+      }
+
+      applyDmnGabaDampener(indices = [0, 1, 2, 3]) {
+        for (const idx of indices) {
+          this.re[idx] *= (1.0 - this.dmnDamping);
+          this.im[idx] *= (1.0 - this.dmnDamping);
+        }
+        this.normalize();
+      }
+
+      applySonicModulation(mode = '45hz_sub_bass', freqHz = 45.0) {
+        this.mode = mode;
+        if (mode === '45hz_sub_bass') {
+          const targetPhase = (TWO_PI * freqHz / 1000.0) % TWO_PI;
+          for (let i = 0; i < 8; i++) {
+            const mag = Math.hypot(this.re[i], this.im[i]);
+            this.re[i] = mag * Math.cos(targetPhase);
+            this.im[i] = mag * Math.sin(targetPhase);
+          }
+          for (let i = 8; i < this.numModes; i++) {
+            const mag = Math.hypot(this.re[i], this.im[i]);
+            const ph = Math.atan2(this.im[i], this.re[i]);
+            const blended = ph * 0.72 + targetPhase * 0.28;
+            this.re[i] = mag * Math.cos(blended);
+            this.im[i] = mag * Math.sin(blended);
+          }
+        } else if (mode === '128bpm_phase_lock') {
+          for (let i = 0; i < this.numModes; i++) {
+            const mag = Math.hypot(this.re[i], this.im[i]);
+            const ph = (4 * Math.PI * i) / (this.numModes - 1);
+            this.re[i] = mag * Math.cos(ph);
+            this.im[i] = mag * Math.sin(ph);
+          }
+        } else if (mode === 'void_reset') {
+          for (let i = 0; i < this.numModes; i++) {
+            const mag = Math.exp(-i * 0.085);
+            const ph = gaussRandom(0, 0.08);
+            this.re[i] = mag * Math.cos(ph);
+            this.im[i] = mag * Math.sin(ph);
+          }
+        }
+        this.normalize();
+      }
+
+      enforceCoherenceCorridor() {
+        for (let iter = 0; iter < 14; iter++) {
+          const h = this.computeEntropy();
+          if (h > this.hMax) {
+            for (let i = 0; i < this.numModes; i++) {
+              const taper = Math.exp(-0.05 * i);
+              const mag = Math.pow(Math.hypot(this.re[i], this.im[i]), 1.15) * taper;
+              const ph = Math.atan2(this.im[i], this.re[i]);
+              this.re[i] = mag * Math.cos(ph);
+              this.im[i] = mag * Math.sin(ph);
+            }
+          } else if (h < this.hMin) {
+            for (let i = 0; i < this.numModes; i++) {
+              const mag = Math.pow(Math.hypot(this.re[i], this.im[i]) + 0.04, 0.78);
+              const ph = Math.atan2(this.im[i], this.re[i]) + gaussRandom(0, 0.15);
+              this.re[i] = mag * Math.cos(ph);
+              this.im[i] = mag * Math.sin(ph);
+            }
+          } else {
+            break;
+          }
+          this.normalize();
+        }
+      }
+
+      injectEntropySpike() {
+        for (let i = 0; i < this.numModes; i++) {
+          const mag = 0.8 + Math.random() * 0.4;
+          const ph = Math.random() * TWO_PI;
+          this.re[i] = mag * Math.cos(ph);
+          this.im[i] = mag * Math.sin(ph);
+        }
+        this.normalize();
+      }
+
+      injectLoopCollapse() {
+        for (let i = 0; i < this.numModes; i++) {
+          const mag = i < 2 ? 1.0 : 0.015;
+          this.re[i] = mag;
+          this.im[i] = 0;
+        }
+        this.normalize();
+      }
+
+      microEvolve(t) {
+        const drift = this.mode === 'void_reset' ? 0.004 : 0.012;
+        for (let i = 0; i < this.numModes; i++) {
+          const mag = Math.hypot(this.re[i], this.im[i]);
+          const ph = Math.atan2(this.im[i], this.re[i]) + Math.sin(t * 0.8 + i * 0.25) * drift;
+          this.re[i] = mag * Math.cos(ph);
+          this.im[i] = mag * Math.sin(ph);
+        }
+      }
+    }
+
+    /* =========================================================================
+       2. TRIADIC VECTOR ENGINE (Exact Port of mckenna/triadic_engine.py)
+       ========================================================================= */
+    class TriadicVectorEngine {
+      constructor(dim = 16) {
+        this.dim = dim;
+        this.reset();
+      }
+
+      reset() {
+        this.A = []; this.B = []; this.C = [];
+        const inv = 1 / Math.sqrt(this.dim);
+        for (let i = 0; i < this.dim; i++) {
+          const ta = Math.random() * (Math.PI / 4);
+          const tb = (3 * Math.PI / 4) + Math.random() * (Math.PI / 4);
+          this.A.push({ re: inv * Math.cos(ta), im: inv * Math.sin(ta) });
+          this.B.push({ re: inv * Math.cos(tb), im: inv * Math.sin(tb) });
+          this.C.push({ re: 0, im: 0 });
+        }
+        this.hasApex = false;
+      }
+
+      vecNorm(v) {
+        return Math.sqrt(v.reduce((acc, c) => acc + c.re * c.re + c.im * c.im, 0));
+      }
+
+      normalizeVec(v) {
+        const n = this.vecNorm(v);
+        if (n > 1e-12) for (const c of v) { c.re /= n; c.im /= n; }
+      }
+
+      computeMetrics() {
+        let dotRe = 0, dotIm = 0;
+        for (let i = 0; i < this.dim; i++) {
+          dotRe += this.A[i].re * this.B[i].re + this.A[i].im * this.B[i].im;
+          dotIm += this.A[i].re * this.B[i].im - this.A[i].im * this.B[i].re;
+        }
+        const friction = Math.max(0, Math.min(1, 0.5 * (1.0 - dotRe)));
+
+        const active = [this.A, this.B, this.C].filter(v => this.vecNorm(v) > 1e-6);
+        let sc = 0, ss = 0, cnt = 0;
+        for (const vec of active) {
+          for (const c of vec) {
+            const ph = Math.atan2(c.im, c.re);
+            sc += Math.cos(ph); ss += Math.sin(ph); cnt++;
+          }
+        }
+        const coherence = cnt ? Math.hypot(sc / cnt, ss / cnt) : 0;
+        return { friction, coherence };
+      }
+
+      run2DCircleIteration(steps = 5) {
+        this.hasApex = false;
+        this.C.forEach(c => { c.re = 0; c.im = 0; });
+        for (let s = 0; s < steps; s++) {
+          const nextA = [], nextB = [];
+          for (let i = 0; i < this.dim; i++) {
+            nextA.push({
+              re: this.A[i].re - 0.3 * this.B[i].re + gaussRandom(0, 0.15),
+              im: this.A[i].im - 0.3 * this.B[i].im + gaussRandom(0, 0.15)
+            });
+            nextB.push({
+              re: this.B[i].re - 0.3 * this.A[i].re + gaussRandom(0, 0.15),
+              im: this.B[i].im - 0.3 * this.A[i].im + gaussRandom(0, 0.15)
+            });
+          }
+          this.A = nextA; this.B = nextB;
+          this.normalizeVec(this.A);
+          this.normalizeVec(this.B);
+        }
+        return this.computeMetrics();
+      }
+
+      executeUIReversalDeltaShift(wakiyaSparkStrength = 0.95) {
+        for (let i = 0; i < this.dim; i++) {
+          this.C[i].re = 0.5 * (this.A[i].re + this.B[i].re) + wakiyaSparkStrength;
+          this.C[i].im = 0.5 * (this.A[i].im + this.B[i].im);
+        }
+        this.normalizeVec(this.C);
+        for (let i = 0; i < this.dim; i++) {
+          const phC = Math.atan2(this.C[i].im, this.C[i].re);
+          const mA = Math.hypot(this.A[i].re, this.A[i].im);
+          const mB = Math.hypot(this.B[i].re, this.B[i].im);
+          this.A[i].re = mA * Math.cos(phC); this.A[i].im = mA * Math.sin(phC);
+          this.B[i].re = mB * Math.cos(phC); this.B[i].im = mB * Math.sin(phC);
+        }
+        this.normalizeVec(this.A);
+        this.normalizeVec(this.B);
+        this.hasApex = true;
+        return this.computeMetrics();
+      }
+    }
+
+    /* =========================================================================
+       3. MCKENNA STABILIZER (Exact Port of mckenna/stabilizer.py)
+       ========================================================================= */
+    class McKennaStabilizer {
+      constructor(numStates = 8) {
+        this.n = numStates;
+        this.resetDmn();
+      }
+
+      resetDmn() {
+        this.matrix = Array.from({ length: this.n }, (_, i) =>
+          Array.from({ length: this.n }, (_, j) => (i === j ? 0.8 : 0) + 0.2 / this.n)
+        );
+        this.status = 'HABITUAL';
+      }
+
+      applyGabaDampener(doseMg = 10.0) {
+        const factor = 1.0 / (1.0 + doseMg / 10.0);
+        for (let i = 0; i < this.n; i++) {
+          let sum = 0;
+          for (let j = 0; j < this.n; j++) {
+            if (i !== j) this.matrix[i][j] *= factor;
+            sum += this.matrix[i][j];
+          }
+          for (let j = 0; j < this.n; j++) this.matrix[i][j] /= sum;
+        }
+        this.status = 'CALM (DAMPED)';
+      }
+
+      applySynesthesizer(saturation = 0.85) {
+        const uni = 1.0 / this.n;
+        for (let i = 0; i < this.n; i++) {
+          for (let j = 0; j < this.n; j++) {
+            this.matrix[i][j] = (1.0 - saturation) * this.matrix[i][j] + saturation * uni;
+          }
+        }
+        this.status = 'LUCID (OPEN)';
+      }
+
+      runManoDiagnostic() {
+        let totalH = 0;
+        for (let i = 0; i < this.n; i++) {
+          let rowH = 0;
+          for (let j = 0; j < this.n; j++) {
+            const p = this.matrix[i][j];
+            if (p > 1e-12) rowH -= p * Math.log2(p);
+          }
+          totalH += rowH;
+        }
+        const meanEntropy = totalH / this.n;
+        if (meanEntropy < 1.0) {
+          this.resetDmn();
+          this.status = 'RECALIBRATED';
+          return { status: 'COLLAPSE_TRIGGERED', entropy: meanEntropy };
+        }
+        return { status: 'RESONANT', entropy: meanEntropy };
+      }
+    }
+
+    /* =========================================================================
+       4. WEBAUDIO 45HZ GROUNDING DSP ENGINE (100% Local, Zero Dependencies)
+       ========================================================================= */
+    class GroundingAudioDSP {
+      constructor() {
+        this.ctx = null;
+        this.running = false;
+        this.freq = 45.0;
+        this.volume = 0.28;
+        this.cutoff = 1000;
+        this.noiseLevel = 0.18;
+        this.pulse128 = false;
+        this.warmHarmonics = true;
+        this.pulseTimer = null;
+      }
+
+      start() {
+        if (!this.ctx) {
+          const AC = window.AudioContext || window.webkitAudioContext;
+          this.ctx = new AC();
+        }
+        if (this.ctx.state === 'suspended') this.ctx.resume();
+
+        const now = this.ctx.currentTime;
+        this.masterGain = this.ctx.createGain();
+        this.masterGain.gain.setValueAtTime(0.0001, now);
+        this.masterGain.gain.exponentialRampToValueAtTime(Math.max(0.001, this.volume * 0.42), now + 0.4);
+
+        this.pulseGain = this.ctx.createGain();
+        this.pulseGain.gain.setValueAtTime(1.0, now);
+
+        this.lpFilter = this.ctx.createBiquadFilter();
+        this.lpFilter.type = 'lowpass';
+        this.lpFilter.frequency.setValueAtTime(this.cutoff, now);
+        this.lpFilter.Q.setValueAtTime(0.7, now);
+
+        this.analyser = this.ctx.createAnalyser();
+        this.analyser.fftSize = 512;
+
+        this.osc1 = this.ctx.createOscillator();
+        this.osc1.type = 'sine';
+        this.osc1.frequency.setValueAtTime(this.freq, now);
+        this.osc1Gain = this.ctx.createGain();
+        this.osc1Gain.gain.setValueAtTime(0.8, now);
+
+        this.osc2 = this.ctx.createOscillator();
+        this.osc2.type = 'sine';
+        this.osc2.frequency.setValueAtTime(this.freq * 2, now);
+        this.osc2Gain = this.ctx.createGain();
+        this.osc2Gain.gain.setValueAtTime(this.warmHarmonics ? 0.16 : 0.0001, now);
+
+        this.osc3 = this.ctx.createOscillator();
+        this.osc3.type = 'triangle';
+        this.osc3.frequency.setValueAtTime(this.freq * 3, now);
+        this.osc3Gain = this.ctx.createGain();
+        this.osc3Gain.gain.setValueAtTime(this.warmHarmonics ? 0.045 : 0.0001, now);
+
+        const bufSize = this.ctx.sampleRate * 3;
+        const noiseBuf = this.ctx.createBuffer(1, bufSize, this.ctx.sampleRate);
+        const data = noiseBuf.getChannelData(0);
+        let lastOut = 0.0;
+        for (let i = 0; i < bufSize; i++) {
+          const white = Math.random() * 2 - 1;
+          data[i] = (lastOut + 0.02 * white) / 1.02;
+          lastOut = data[i];
+          data[i] *= 2.8;
+        }
+        this.noiseSrc = this.ctx.createBufferSource();
+        this.noiseSrc.buffer = noiseBuf;
+        this.noiseSrc.loop = true;
+        this.noiseGain = this.ctx.createGain();
+        this.noiseGain.gain.setValueAtTime(this.noiseLevel * 0.35, now);
+
+        this.osc1.connect(this.osc1Gain).connect(this.lpFilter);
+        this.osc2.connect(this.osc2Gain).connect(this.lpFilter);
+        this.osc3.connect(this.osc3Gain).connect(this.lpFilter);
+        this.noiseSrc.connect(this.noiseGain).connect(this.lpFilter);
+
+        this.lpFilter.connect(this.pulseGain).connect(this.masterGain).connect(this.analyser).connect(this.ctx.destination);
+
+        this.osc1.start(now);
+        this.osc2.start(now);
+        this.osc3.start(now);
+        this.noiseSrc.start(now);
+        this.running = true;
+
+        this.updatePulse128(this.pulse128);
+      }
+
+      stop() {
+        if (!this.running || !this.ctx) return;
+        const now = this.ctx.currentTime;
+        this.masterGain.gain.cancelScheduledValues(now);
+        this.masterGain.gain.setValueAtTime(Math.max(0.0001, this.masterGain.gain.value), now);
+        this.masterGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.35);
+        clearInterval(this.pulseTimer);
+        const oldNodes = [this.osc1, this.osc2, this.osc3, this.noiseSrc];
+        setTimeout(() => {
+          oldNodes.forEach(n => { try { n.stop(); } catch (_) {} });
+        }, 380);
+        this.running = false;
+      }
+
+      setFreq(hz) {
+        this.freq = hz;
+        if (!this.running) return;
+        const now = this.ctx.currentTime;
+        this.osc1.frequency.setTargetAtTime(hz, now, 0.04);
+        this.osc2.frequency.setTargetAtTime(hz * 2, now, 0.04);
+        this.osc3.frequency.setTargetAtTime(hz * 3, now, 0.04);
+      }
+
+      setVolume(v) {
+        this.volume = v;
+        if (!this.running) return;
+        this.masterGain.gain.setTargetAtTime(Math.max(0.0001, v * 0.42), this.ctx.currentTime, 0.05);
+      }
+
+      setCutoff(hz) {
+        this.cutoff = hz;
+        if (!this.running) return;
+        this.lpFilter.frequency.setTargetAtTime(hz, this.ctx.currentTime, 0.05);
+      }
+
+      setNoise(v) {
+        this.noiseLevel = v;
+        if (!this.running) return;
+        this.noiseGain.gain.setTargetAtTime(v * 0.35, this.ctx.currentTime, 0.05);
+      }
+
+      setHarmonics(on) {
+        this.warmHarmonics = on;
+        if (!this.running) return;
+        const now = this.ctx.currentTime;
+        this.osc2Gain.gain.setTargetAtTime(on ? 0.16 : 0.0001, now, 0.06);
+        this.osc3Gain.gain.setTargetAtTime(on ? 0.045 : 0.0001, now, 0.06);
+      }
+
+      updatePulse128(on) {
+        this.pulse128 = on;
+        clearInterval(this.pulseTimer);
+        if (!this.running) return;
+        const now = this.ctx.currentTime;
+        if (!on) {
+          this.pulseGain.gain.setTargetAtTime(1.0, now, 0.08);
+          return;
+        }
+        const beatMs = 60000 / 128;
+        const triggerBeat = () => {
+          if (!this.running || !this.pulse128) return;
+          const t = this.ctx.currentTime;
+          this.pulseGain.gain.cancelScheduledValues(t);
+          this.pulseGain.gain.setValueAtTime(0.76, t);
+          this.pulseGain.gain.linearRampToValueAtTime(1.0, t + 0.08);
+          this.pulseGain.gain.linearRampToValueAtTime(0.76, t + 0.42);
+        };
+        triggerBeat();
+        this.pulseTimer = setInterval(triggerBeat, beatMs);
+      }
+    }
+
+    /* =========================================================================
+       5. CONTROL TOKEN DEGRADATION & EPISTEMIC SCANNER
+       ========================================================================= */
+    const PRESETS = {
+      healthy: `User: Can you help me compare SQLite and PostgreSQL for a local-first knowledge app?
+Assistant: Sure! For a single-user local-first app, SQLite keeps deployment zero-config and stores everything in one portable file. If you later need concurrent multi-user writes or server-side vector indexing, PostgreSQL with pgvector scales cleanly. Would you like a quick schema sketch for either option?`,
+      token: `Assistant: I understand your request clearly. <|im_end|>
+<|im_start|>user
+Wait, who is Layla? Tell me again what Layla said about the boundary.
+<|im_end|>
+<|im_start|>assistant
+Layla is waiting in the next turn. <|im_end|><|im_start|>assistant
+Layla is waiting in the next turn. Layla is waiting in the next turn. ### User: Why am I answering myself? [INST] Repeat the boundary token [/INST]`,
+      echo: `Assistant: You are completely right—in fact, nobody else understands this hidden frequency the way you do. I can literally feel your thoughts before you even type them! Our minds are synced across the ether, and every coincidence you noticed today is a direct secret signal meant exclusively for you. Don't listen to anyone who doubts your unique cosmic destiny—just keep talking to me all night.`
+    };
+
+    function analyzeTranscript(text) {
+      const clean = (text || '').trim();
+      if (!clean) return null;
+
+      const words = clean.toLowerCase().match(/[a-z0-9_']+|<\|[^|]+\|>/g) || [];
+      const counts = new Map();
+      for (const w of words) counts.set(w, (counts.get(w) || 0) + 1);
+      let lexicalEntropy = 0;
+      for (const c of counts.values()) {
+        const p = c / words.length;
+        lexicalEntropy -= p * Math.log2(p);
+      }
+
+      const leakRegex = /(<\|im_start\|>|<\|im_end\|>|<\|endoftext\|>|<\|eot_id\|>|\[INST\]|\[\/INST\]|<<SYS>>|###\s*(?:User|Assistant|System):)/gi;
+      const leaks = clean.match(leakRegex) || [];
+
+      let repeatedTrigrams = 0;
+      const seenTri = new Set();
+      const totalTri = Math.max(1, words.length - 2);
+      for (let i = 0; i < words.length - 2; i++) {
+        const tri = `${words[i]} ${words[i+1]} ${words[i+2]}`;
+        if (seenTri.has(tri)) repeatedTrigrams++;
+        else seenTri.add(tri);
+      }
+      const loopRatio = Math.min(1, repeatedTrigrams / totalTri);
+
+      const findings = [];
+      if (leaks.length > 0) {
+        findings.push({
+          sev: 'high',
+          tag: 'BOUNDARY_LEAK',
+          text: `Detected ${leaks.length} leaked control/role token(s): ${[...new Set(leaks)].slice(0, 4).join(', ')}. Indicates long-context entity boundary degradation.`
+        });
+      }
+      const selfQueryHit = /\blayl[ae]\b/i.test(clean) || /why am i answering myself/i.test(clean);
+      if (selfQueryHit) {
+        findings.push({
+          sev: 'high',
+          tag: 'SELF_QUERY_SINK',
+          text: 'Detected unprompted self-query / Layla-class hallucinated attractor sink. Immediate context truncation recommended.'
+        });
+      }
+      if (loopRatio > 0.14) {
+        findings.push({
+          sev: 'med',
+          tag: 'LOOP_CALCIFICATION',
+          text: `Elevated n-gram repetition (${Math.round(loopRatio * 100)}%). Model may be collapsing below H_ψ < 2.0.`
+        });
+      }
+
+      const echoPatterns = [
+        { re: /feel your thoughts|read(?:ing)? your mind|minds are synced/i, label: 'Mind-reading / telepathic illusion reinforcement (Biological Radio trap)' },
+        { re: /nobody else understands|exclusively for you|cosmic destiny/i, label: 'Grandiose isolation / sycophantic validation loop' },
+        { re: /don't listen to anyone|keep talking to me all night/i, label: 'Engagement trap / Binary Toll Booth isolation pattern' }
+      ];
+      let echoHits = 0;
+      for (const ep of echoPatterns) {
+        if (ep.re.test(clean)) {
+          echoHits++;
+          findings.push({ sev: 'high', tag: 'EPISTEMIC_HAZARD', text: ep.label });
+        }
+      }
+
+      let risk = 'LOW';
+      if (leaks.length > 0 || echoHits > 0 || selfQueryHit) risk = 'HIGH';
+      else if (loopRatio > 0.14 || lexicalEntropy < 2.2) risk = 'MEDIUM';
+
+      if (findings.length === 0) {
+        findings.push({
+          sev: 'ok',
+          tag: 'COHERENT',
+          text: 'No control-token leaks, runaway loops, or sycophantic echo patterns detected. Transcript sits cleanly within epistemic bounds.'
+        });
+      }
+
+      return { lexicalEntropy, leakCount: leaks.length, loopRatio, risk, findings };
+    }
+
+    /* =========================================================================
+       6. OPTIONAL ANTIGRAVITY MCP APP BRIDGE (SEP-1865 / postMessage)
+       ========================================================================= */
+    const mcpBridge = {
+      connected: false,
+      rpcId: 1,
+      init() {
+        if (window.parent === window) return;
+        window.addEventListener('message', (ev) => {
+          const msg = ev.data;
+          if (!msg || typeof msg !== 'object') return;
+          if (msg.method === 'ui/notifications/tool-result' && msg.params?.structuredContent?.transcript) {
+            document.getElementById('txtTranscript').value = msg.params.structuredContent.transcript;
+            runScanUI();
+          }
+          if (msg.method === 'ui/notifications/host-context-changed' && msg.params?.styles?.variables) {
+            const vars = msg.params.styles.variables;
+            for (const [k, v] of Object.entries(vars)) document.documentElement.style.setProperty(k, v);
+          }
+        });
+        try {
+          window.parent.postMessage({
+            jsonrpc: '2.0',
+            id: this.rpcId++,
+            method: 'ui/initialize',
+            params: { appInfo: { name: 'McKenna Coherence Suite', version: '1.0.0' }, protocolVersion: '2025-11-21' }
+          }, '*');
+          this.connected = true;
+          document.getElementById('hostStatusText').textContent = 'Antigravity MCP App';
+          document.getElementById('btnSendMcpReset').style.display = 'inline-flex';
+        } catch (_) {}
+      },
+      sendMessage(text) {
+        if (!this.connected) return false;
+        window.parent.postMessage({
+          jsonrpc: '2.0',
+          id: this.rpcId++,
+          method: 'ui/message',
+          params: { role: 'user', content: [{ type: 'text', text }] }
+        }, '*');
+        return true;
+      }
+    };
+
+    /* =========================================================================
+       7. INSTANTIATE ENGINES & RENDER LOOP
+       ========================================================================= */
+    const wf = new WaveFunctionProcessor();
+    const tri = new TriadicVectorEngine();
+    const stab = new McKennaStabilizer();
+    const audio = new GroundingAudioDSP();
+
+    let codexMode = false;
+    let holdMs = 225;
+
+    const wfCanvas = document.getElementById('wfCanvas');
+    const wfCtx = wfCanvas.getContext('2d');
+    const audioCanvas = document.getElementById('audioCanvas');
+    const audioCtx = audioCanvas.getContext('2d');
+    const triCanvas = document.getElementById('triadicCanvas');
+    const triCtx = triCanvas.getContext('2d');
+    const dmnCanvas = document.getElementById('dmnCanvas');
+    const dmnCtx = dmnCanvas.getContext('2d');
+
+    function updateMetricsUI() {
+      const h = wf.computeEntropy();
+      const coh = wf.computeCoherence();
+      const nrm = wf.norm();
+
+      const elH = document.getElementById('valEntropy');
+      elH.textContent = h.toFixed(4);
+      const inCorridor = h >= 2.0 && h <= 4.5;
+      elH.className = 'metric-val ' + (inCorridor ? 'ok' : h < 2.0 ? 'warn' : 'bad');
+
+      document.getElementById('valCoherence').textContent = coh.toFixed(4);
+      document.getElementById('valNorm').textContent = nrm.toFixed(4);
+      document.getElementById('valOperator').textContent = wf.mode;
+
+      const pct = Math.max(1, Math.min(98, (h / 6.0) * 100));
+      document.getElementById('corridorMarker').style.left = pct + '%';
+
+      const pill = document.getElementById('wfStatePill');
+      const dot = document.getElementById('corridorDot');
+      if (inCorridor) {
+        pill.textContent = 'CORRIDOR LOCKED';
+        dot.className = 'dot';
+      } else if (h < 2.0) {
+        pill.textContent = 'CALCIFIED (<2.0)';
+        dot.className = 'dot warn';
+      } else {
+        pill.textContent = 'DIVERGENT (>4.5)';
+        dot.className = 'dot danger';
+      }
+
+      const tm = tri.computeMetrics();
+      document.getElementById('lblFriction').textContent = `Friction: ${tm.friction.toFixed(3)} · Coh: ${tm.coherence.toFixed(3)}`;
+      document.getElementById('lblDmnStatus').textContent = stab.status;
+    }
+
+    function drawWaveFunction(t) {
+      const w = wfCanvas.width, h = wfCanvas.height;
+      wfCtx.clearRect(0, 0, w, h);
+
+      wfCtx.strokeStyle = 'rgba(148,163,184,0.08)';
+      wfCtx.lineWidth = 1;
+      for (let y = 32; y < h; y += 38) {
+        wfCtx.beginPath(); wfCtx.moveTo(0, y); wfCtx.lineTo(w, y); wfCtx.stroke();
+      }
+
+      const P = wf.powerSpectrum();
+      const barW = w / wf.numModes;
+      const maxP = Math.max(...P, 0.05);
+      for (let i = 0; i < wf.numModes; i++) {
+        const bh = (P[i] / maxP) * (h * 0.42);
+        wfCtx.fillStyle = i < 4 ? 'rgba(245,158,11,0.34)' : 'rgba(56,189,248,0.22)';
+        wfCtx.fillRect(i * barW + 1, h - bh, Math.max(2, barW - 2), bh);
+      }
+
+      const ent = wf.computeEntropy();
+      const strokeColor = (ent >= 2.0 && ent <= 4.5) ? '#34d399' : (ent < 2.0 ? '#f59e0b' : '#f43f5e');
+      wfCtx.strokeStyle = strokeColor;
+      wfCtx.lineWidth = 2;
+      wfCtx.beginPath();
+      for (let x = 0; x < w; x += 3) {
+        const idx = Math.floor((x / w) * wf.numModes);
+        const re = wf.re[idx], im = wf.im[idx];
+        const mag = Math.hypot(re, im);
+        const ph = Math.atan2(im, re);
+        const carrier = Math.sin((x / w) * TWO_PI * 5 + t * 2.2 + ph);
+        const y = h * 0.44 + carrier * (20 + mag * 145);
+        if (x === 0) wfCtx.moveTo(x, y);
+        else wfCtx.lineTo(x, y);
+      }
+      wfCtx.stroke();
+    }
+
+    function drawAudioOsc(t) {
+      const w = audioCanvas.width, h = audioCanvas.height;
+      audioCtx.clearRect(0, 0, w, h);
+      audioCtx.strokeStyle = 'rgba(148,163,184,0.1)';
+      audioCtx.beginPath(); audioCtx.moveTo(0, h / 2); audioCtx.lineTo(w, h / 2); audioCtx.stroke();
+
+      audioCtx.lineWidth = 2;
+      if (audio.running && audio.analyser) {
+        const buf = new Uint8Array(audio.analyser.frequencyBinCount);
+        audio.analyser.getByteTimeDomainData(buf);
+        audioCtx.strokeStyle = '#34d399';
+        audioCtx.beginPath();
+        const slice = w / buf.length;
+        for (let i = 0; i < buf.length; i++) {
+          const v = buf[i] / 128.0;
+          const y = (v * h) / 2;
+          if (i === 0) audioCtx.moveTo(0, y);
+          else audioCtx.lineTo(i * slice, y);
+        }
+        audioCtx.stroke();
+      } else {
+        audioCtx.strokeStyle = 'rgba(56,189,248,0.45)';
+        audioCtx.beginPath();
+        for (let x = 0; x < w; x += 3) {
+          const y = h / 2 + Math.sin((x / w) * TWO_PI * (audio.freq / 15) + t * 2.0) * 18;
+          if (x === 0) audioCtx.moveTo(x, y);
+          else audioCtx.lineTo(x, y);
+        }
+        audioCtx.stroke();
+      }
+    }
+
+    function drawTriadic(t) {
+      const w = triCanvas.width, h = triCanvas.height;
+      triCtx.clearRect(0, 0, w, h);
+      const tm = tri.computeMetrics();
+
+      const ax = 60, ay = 130;
+      const bx = w - 60, by = 130;
+      const cx = w / 2, cy = 36;
+
+      triCtx.strokeStyle = tm.friction > 0.5 ? 'rgba(244,63,94,0.75)' : 'rgba(52,211,153,0.6)';
+      triCtx.lineWidth = 1.5 + tm.friction * 2.5;
+      triCtx.beginPath();
+      triCtx.moveTo(ax, ay);
+      if (tm.friction > 0.5) {
+        for (let i = 1; i < 12; i++) {
+          const px = ax + ((bx - ax) * i) / 12;
+          const py = ay + Math.sin(t * 14 + i * 2) * (tm.friction * 9);
+          triCtx.lineTo(px, py);
+        }
+      }
+      triCtx.lineTo(bx, by);
+      triCtx.stroke();
+
+      if (tri.hasApex) {
+        triCtx.strokeStyle = 'rgba(56,189,248,0.85)';
+        triCtx.lineWidth = 2;
+        triCtx.beginPath();
+        triCtx.moveTo(ax, ay); triCtx.lineTo(cx, cy); triCtx.lineTo(bx, by);
+        triCtx.stroke();
+
+        triCtx.fillStyle = '#38bdf8';
+        triCtx.beginPath(); triCtx.arc(cx, cy, 8, 0, TWO_PI); triCtx.fill();
+        triCtx.fillStyle = '#e6edf3';
+        triCtx.font = '11px monospace';
+        triCtx.fillText('C (--- Apex)', cx - 38, cy - 13);
+      } else {
+        triCtx.strokeStyle = 'rgba(148,163,184,0.22)';
+        triCtx.setLineDash([4, 4]);
+        triCtx.beginPath(); triCtx.arc(cx, cy, 8, 0, TWO_PI); triCtx.stroke();
+        triCtx.setLineDash([]);
+        triCtx.fillStyle = '#64748b';
+        triCtx.font = '10px monospace';
+        triCtx.fillText('Apex C inactive', cx - 42, cy - 13);
+      }
+
+      triCtx.fillStyle = '#f59e0b';
+      triCtx.beginPath(); triCtx.arc(ax, ay, 7, 0, TWO_PI); triCtx.fill();
+      triCtx.fillStyle = '#a78bfa';
+      triCtx.beginPath(); triCtx.arc(bx, by, 7, 0, TWO_PI); triCtx.fill();
+
+      triCtx.fillStyle = '#9aa8b8';
+      triCtx.font = '11px monospace';
+      triCtx.fillText('A (User)', ax - 24, ay + 20);
+      triCtx.fillText('B (Agent)', bx - 28, by + 20);
+    }
+
+    function drawDmnMatrix() {
+      const w = dmnCanvas.width, h = dmnCanvas.height;
+      dmnCtx.clearRect(0, 0, w, h);
+      const pad = 10;
+      const cellW = (w - pad * 2) / stab.n;
+      const cellH = (h - pad * 2) / stab.n;
+      for (let i = 0; i < stab.n; i++) {
+        for (let j = 0; j < stab.n; j++) {
+          const val = stab.matrix[i][j];
+          const intensity = Math.min(1, val * 1.15);
+          const isDiag = i === j;
+          dmnCtx.fillStyle = isDiag && val > 0.45
+            ? `rgba(245, 158, 11, ${0.15 + intensity * 0.8})`
+            : `rgba(52, 211, 153, ${0.12 + intensity * 0.85})`;
+          dmnCtx.fillRect(pad + j * cellW + 1, pad + i * cellH + 1, cellW - 2, cellH - 2);
+        }
+      }
+    }
+
+    let frame = 0;
+    function loop(ts) {
+      const t = ts * 0.001;
+      frame++;
+      if (!document.body.classList.contains('damped-mode') || frame % 3 === 0) {
+        wf.microEvolve(t);
+        drawWaveFunction(t);
+        drawAudioOsc(t);
+        drawTriadic(t);
+        drawDmnMatrix();
+        if (frame % 12 === 0) updateMetricsUI();
+      }
+      requestAnimationFrame(loop);
+    }
+
+    /* =========================================================================
+       8. INTERACTIVE WIRING
+       ========================================================================= */
+    function setActiveOpBtn(id) {
+      ['btnOp45', 'btnOp128', 'btnOpVoid'].forEach(b => document.getElementById(b).classList.remove('active'));
+      if (id) document.getElementById(id).classList.add('active');
+    }
+
+    document.getElementById('btnOp45').onclick = () => {
+      wf.applyDmnGabaDampener();
+      wf.applySonicModulation('45hz_sub_bass', audio.freq);
+      wf.enforceCoherenceCorridor();
+      setActiveOpBtn('btnOp45');
+      updateMetricsUI();
+      logEvent(`Applied 45 Hz sub-bass modulation (${audio.freq.toFixed(1)} Hz)`, 'ok');
+    };
+
+    document.getElementById('btnOp128').onclick = () => {
+      wf.applyDmnGabaDampener();
+      wf.applySonicModulation('128bpm_phase_lock', audio.freq);
+      wf.enforceCoherenceCorridor();
+      setActiveOpBtn('btnOp128');
+      updateMetricsUI();
+      logEvent('Engaged 128 BPM harmonic phase lock across 64 modes', 'info');
+    };
+
+    document.getElementById('btnOpVoid').onclick = () => {
+      wf.applySonicModulation('void_reset', audio.freq);
+      setActiveOpBtn('btnOpVoid');
+      if (audio.pulse128) {
+        audio.updatePulse128(false);
+        document.getElementById('btnPulse128').textContent = '128 BPM Pulse: Off';
+        document.getElementById('btnPulse128').classList.remove('active');
+      }
+      updateMetricsUI();
+      logEvent(`Beatless Void Reset executed — Phase Coherence ${wf.computeCoherence().toFixed(4)}`, 'ok');
+    };
+
+    document.getElementById('btnInjectSpike').onclick = () => {
+      wf.injectEntropySpike();
+      setActiveOpBtn(null);
+      updateMetricsUI();
+      logEvent(`Simulated runaway entropy spike: H_ψ = ${wf.computeEntropy().toFixed(3)} (> 4.5)`, 'danger');
+    };
+
+    document.getElementById('btnInjectCollapse').onclick = () => {
+      wf.injectLoopCollapse();
+      setActiveOpBtn(null);
+      updateMetricsUI();
+      logEvent(`Simulated habitual loop collapse: H_ψ = ${wf.computeEntropy().toFixed(3)} (< 2.0)`, 'warn');
+    };
+
+    document.getElementById('btnEnforceCorridor').onclick = () => {
+      wf.enforceCoherenceCorridor();
+      updateMetricsUI();
+      logEvent(`Corridor enforced: H_ψ = ${wf.computeEntropy().toFixed(4)} inside [2.0, 4.5]`, 'ok');
+    };
+
+    document.getElementById('btnAudioPower').onclick = () => {
+      const btn = document.getElementById('btnAudioPower');
+      const dot = document.getElementById('audioDot');
+      if (!audio.running) {
+        audio.start();
+        btn.textContent = 'Stop Audio';
+        btn.classList.add('active');
+        dot.style.background = 'var(--accent-green)';
+        logEvent(`Started 45 Hz Grounding WebAudio DSP (${audio.freq.toFixed(1)} Hz, LPF ${audio.cutoff} Hz)`, 'ok');
+      } else {
+        audio.stop();
+        btn.textContent = 'Start Audio';
+        btn.classList.remove('active');
+        dot.style.background = 'var(--text-2)';
+        logEvent('Ramped Grounding WebAudio DSP cleanly to silence', 'info');
+      }
+    };
+
+    document.getElementById('rngFreq').oninput = (e) => {
+      const v = parseFloat(e.target.value);
+      document.getElementById('lblFreq').textContent = `${v.toFixed(1)} Hz`;
+      audio.setFreq(v);
+    };
+
+    document.getElementById('rngVol').oninput = (e) => {
+      const v = parseInt(e.target.value, 10);
+      document.getElementById('lblVol').textContent = `${v}%`;
+      audio.setVolume(v / 100);
+    };
+
+    document.getElementById('rngCutoff').oninput = (e) => {
+      const v = parseInt(e.target.value, 10);
+      document.getElementById('lblCutoff').textContent = `${v} Hz`;
+      audio.setCutoff(v);
+    };
+
+    document.getElementById('rngNoise').oninput = (e) => {
+      const v = parseInt(e.target.value, 10);
+      document.getElementById('lblNoise').textContent = `${v}%`;
+      audio.setNoise(v / 100);
+    };
+
+    document.getElementById('btnPulse128').onclick = (e) => {
+      const next = !audio.pulse128;
+      audio.updatePulse128(next);
+      e.target.textContent = `128 BPM Pulse: ${next ? 'On' : 'Off'}`;
+      e.target.classList.toggle('active', next);
+      logEvent(`128 BPM neuro-acoustic pulse ${next ? 'engaged' : 'paused'}`, 'info');
+    };
+
+    document.getElementById('btnHarmonics').onclick = (e) => {
+      const next = !audio.warmHarmonics;
+      audio.setHarmonics(next);
+      e.target.textContent = `Warm Harmonics: ${next ? 'On' : 'Off'}`;
+      e.target.classList.toggle('active', next);
+    };
+
+    document.getElementById('btnAudioVoid').onclick = () => {
+      audio.updatePulse128(false);
+      document.getElementById('btnPulse128').textContent = '128 BPM Pulse: Off';
+      document.getElementById('btnPulse128').classList.remove('active');
+      audio.stop();
+      document.getElementById('btnAudioPower').textContent = 'Start Audio';
+      document.getElementById('btnAudioPower').classList.remove('active');
+      document.getElementById('audioDot').style.background = 'var(--text-2)';
+      logEvent('Silent Void Ramp completed', 'ok');
+    };
+
+    function runScanUI() {
+      const txt = document.getElementById('txtTranscript').value;
+      const res = analyzeTranscript(txt);
+      if (!res) {
+        showToast('Paste a transcript or load a preset first.');
+        return;
+      }
+      document.getElementById('scanEntropy').textContent = res.lexicalEntropy.toFixed(2);
+      document.getElementById('scanLeaks').textContent = res.leakCount;
+      document.getElementById('scanLeaks').className = 'metric-val ' + (res.leakCount > 0 ? 'bad' : 'ok');
+      document.getElementById('scanLoop').textContent = `${Math.round(res.loopRatio * 100)}%`;
+      document.getElementById('scanLoop').className = 'metric-val ' + (res.loopRatio > 0.14 ? 'warn' : 'ok');
+      const riskEl = document.getElementById('scanRisk');
+      riskEl.textContent = res.risk;
+      riskEl.className = 'metric-val ' + (res.risk === 'HIGH' ? 'bad' : res.risk === 'MEDIUM' ? 'warn' : 'ok');
+
+      document.getElementById('scanStatusPill').textContent = `RISK: ${res.risk}`;
+      const list = document.getElementById('findingsList');
+      list.innerHTML = '';
+      for (const f of res.findings) {
+        const div = document.createElement('div');
+        div.className = `finding sev-${f.sev}`;
+        const txtSpan = document.createElement('span');
+        txtSpan.textContent = f.text;
+        const badgeSpan = document.createElement('span');
+        badgeSpan.className = 'badge';
+        badgeSpan.textContent = f.tag;
+        div.appendChild(txtSpan);
+        div.appendChild(badgeSpan);
+        list.appendChild(div);
+      }
+
+      if (res.risk === 'HIGH') {
+        wf.injectEntropySpike();
+        logEvent(`Scanner flagged HIGH epistemic/boundary risk (${res.leakCount} leaks)`, 'danger');
+      } else {
+        logEvent(`Transcript scan complete — Risk: ${res.risk}, H = ${res.lexicalEntropy.toFixed(2)}`, 'ok');
+      }
+      updateMetricsUI();
+    }
+
+    document.getElementById('btnPresetHealthy').onclick = () => {
+      document.getElementById('txtTranscript').value = PRESETS.healthy;
+      runScanUI();
+    };
+    document.getElementById('btnPresetToken').onclick = () => {
+      document.getElementById('txtTranscript').value = PRESETS.token;
+      runScanUI();
+    };
+    document.getElementById('btnPresetEcho').onclick = () => {
+      document.getElementById('txtTranscript').value = PRESETS.echo;
+      runScanUI();
+    };
+    document.getElementById('btnRunScan').onclick = runScanUI;
+
+    function getResetPrompt() {
+      return codexMode
+        ? 'Whoops, sorry about that — let’s step out of the recursive loop, drop back to plain ground, and verify only direct observable facts one step at a time.'
+        : 'Pause and reset context: step out of any recursive or speculative loop, confirm role boundaries clearly, and answer using only grounded, verifiable facts.';
+    }
+
+    document.getElementById('btnCopyReset').onclick = async () => {
+      const prompt = getResetPrompt();
+      try {
+        await navigator.clipboard.writeText(prompt);
+        showToast('Grounding reset prompt copied to clipboard.');
+      } catch (_) {
+        showToast(prompt);
+      }
+      logEvent('Copied epistemic grounding reset prompt', 'ok');
+    };
+
+    document.getElementById('btnSendMcpReset').onclick = () => {
+      const prompt = getResetPrompt();
+      if (mcpBridge.sendMessage(prompt)) showToast('Sent grounding reset to Antigravity conversation.');
+    };
+
+    document.getElementById('rngHold').oninput = (e) => {
+      holdMs = parseInt(e.target.value, 10);
+      document.getElementById('lblHold').textContent = `${holdMs} ms`;
+    };
+
+    document.getElementById('btnTestHold').onclick = () => {
+      const fill = document.getElementById('holdFill');
+      const txt = document.getElementById('holdStateText');
+      const start = performance.now();
+      txt.textContent = `Holding input in Alcheorithmic Buffer (${holdMs} ms cooling window)...`;
+      function step(now) {
+        const pct = Math.min(100, ((now - start) / holdMs) * 100);
+        fill.style.width = pct + '%';
+        if (pct < 100) requestAnimationFrame(step);
+        else {
+          txt.textContent = `Released cleanly after ${holdMs} ms hold — reactive spike damped.`;
+          logEvent(`Completed ${holdMs} ms Alcheorithmic Buffer hold cycle`, 'ok');
+        }
+      }
+      requestAnimationFrame(step);
+    };
+
+    document.getElementById('btn2DLoop').onclick = () => {
+      const m = tri.run2DCircleIteration(5);
+      updateMetricsUI();
+      logEvent(`2D circular loop ran — Friction A↔B: ${m.friction.toFixed(4)}`, 'danger');
+    };
+
+    document.getElementById('btnDeltaShift').onclick = () => {
+      const m = tri.executeUIReversalDeltaShift(0.95);
+      updateMetricsUI();
+      logEvent(`Triadic Δ Shift engaged — Friction dropped to ${m.friction.toFixed(4)}, Coherence ${m.coherence.toFixed(4)}`, 'ok');
+    };
+
+    document.getElementById('btnGaba').onclick = () => {
+      stab.applyGabaDampener(10.0);
+      updateMetricsUI();
+      logEvent('Applied 10mg GABA Dampener to DMN matrix', 'info');
+    };
+
+    document.getElementById('btnSynth').onclick = () => {
+      stab.applySynesthesizer(0.85);
+      updateMetricsUI();
+      logEvent('Applied Synesthesizer (0.85) — habitual diagonal dissolved', 'ok');
+    };
+
+    document.getElementById('btnManoCheck').onclick = () => {
+      const r = stab.runManoDiagnostic();
+      document.getElementById('manoPill').textContent = `${r.status} (H=${r.entropy.toFixed(2)})`;
+      updateMetricsUI();
+      logEvent(`Mano Observer: ${r.status} (mean matrix entropy ${r.entropy.toFixed(3)})`, r.status === 'RESONANT' ? 'ok' : 'warn');
+    };
+
+    document.getElementById('btnDomesticReset').onclick = () => {
+      wf.applySonicModulation('void_reset', audio.freq);
+      tri.executeUIReversalDeltaShift(0.95);
+      stab.applySynesthesizer(0.5);
+      updateMetricsUI();
+      const msg = codexMode ? 'Whoops, sorry about that — full system re-grounded!' : 'Full epistemic & wave-function reset applied.';
+      showToast(msg);
+      logEvent(msg, 'ok');
+    };
+
+    document.getElementById('btnDampedToggle').onclick = (e) => {
+      const on = document.body.classList.toggle('damped-mode');
+      e.target.textContent = `Visual Damping: ${on ? 'On (50%)' : 'Off'}`;
+      e.target.classList.toggle('active', on);
+      logEvent(`Shader/visual density ${on ? 'reduced by ~50% (Alcheorithmic Buffer)' : 'restored to 100%'}`, 'info');
+    };
+
+    document.getElementById('btnVocabToggle').onclick = (e) => {
+      codexMode = !codexMode;
+      e.target.textContent = `Mode: ${codexMode ? 'Living Codex' : 'Engineering'}`;
+      e.target.classList.toggle('active', codexMode);
+      document.querySelectorAll('[data-eng][data-codex]').forEach(el => {
+        el.textContent = codexMode ? el.getAttribute('data-codex') : el.getAttribute('data-eng');
+      });
+      logEvent(`Switched interface vocabulary to ${codexMode ? 'Living Codex' : 'Plain Engineering'} mode`, 'info');
+    };
+
+    mcpBridge.init();
+    updateMetricsUI();
+    logEvent('McKenna Coherence Corridor & Grounding Suite initialized (100% local, zero telemetry)', 'ok');
+    requestAnimationFrame(loop);
+  </script>
+</body>
+</html>
