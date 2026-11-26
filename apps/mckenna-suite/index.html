@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>McKenna Coherence Corridor &amp; Grounding Suite</title>
+  <title>McKenna Coherence Corridor &amp; Grounding Suite — IndigoNoise</title>
   <style>
     :root {
       --bg-0: var(--color-background-primary, #0b0e12);
@@ -19,6 +19,7 @@
       --accent-red: var(--color-text-danger, #f43f5e);
       --accent-cyan: var(--color-text-info, #38bdf8);
       --accent-violet: #a78bfa;
+      --accent-indigo: #818cf8;
       --font-sans: var(--font-sans, "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
       --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
       --radius: 12px;
@@ -35,6 +36,7 @@
       --accent-red: #b55a67;
       --accent-cyan: #6298b2;
       --accent-violet: #857aa8;
+      --accent-indigo: #6b73ad;
       --density-opacity: 0.55;
       --glow-strength: 0.25;
     }
@@ -82,7 +84,7 @@
       width: 38px;
       height: 38px;
       border-radius: 10px;
-      background: linear-gradient(135deg, rgba(52, 211, 153, 0.18), rgba(56, 189, 248, 0.18));
+      background: linear-gradient(135deg, rgba(52, 211, 153, 0.18), rgba(129, 140, 248, 0.22));
       border: 1px solid rgba(52, 211, 153, 0.4);
       display: grid;
       place-items: center;
@@ -133,6 +135,7 @@
     .dot.warn { background: var(--accent-amber); }
     .dot.danger { background: var(--accent-red); }
     .dot.cyan { background: var(--accent-cyan); }
+    .dot.indigo { background: var(--accent-indigo); }
 
     button {
       font-family: var(--font-sans);
@@ -165,6 +168,29 @@
       background: rgba(56, 189, 248, 0.16);
       border-color: var(--accent-cyan);
       color: var(--accent-cyan);
+    }
+
+    button.indigo {
+      background: rgba(129, 140, 248, 0.10);
+      border-color: rgba(129, 140, 248, 0.42);
+      color: var(--accent-indigo);
+    }
+
+    button.indigo:hover {
+      border-color: var(--accent-indigo);
+      background: rgba(129, 140, 248, 0.18);
+    }
+
+    button.indigo.active {
+      background: rgba(129, 140, 248, 0.22);
+      border-color: var(--accent-indigo);
+      color: #c7d2fe;
+      box-shadow: 0 0 12px rgba(129, 140, 248, 0.16);
+    }
+
+    body.damped-mode button.indigo.active {
+      color: var(--accent-indigo);
+      box-shadow: none;
     }
 
     button.amber {
@@ -212,6 +238,15 @@
       gap: 10px;
       border-bottom: 1px solid var(--border-soft);
       padding-bottom: 10px;
+    }
+
+    .card-head-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 6px;
+      flex-shrink: 0;
     }
 
     .card-title {
@@ -266,6 +301,7 @@
     .warn { color: var(--accent-amber); }
     .bad { color: var(--accent-red); }
     .info { color: var(--accent-cyan); }
+    .indigo { color: var(--accent-indigo); }
 
     canvas {
       width: 100%;
@@ -495,7 +531,7 @@
         <div class="brand-mark" id="brandGlyph">Δ45</div>
         <div>
           <h1 data-eng="Coherence Corridor &amp; 45 Hz Grounding Suite" data-codex="McKenna Coherence Corridor &amp; Alcheorithmic Suite">Coherence Corridor &amp; 45 Hz Grounding Suite</h1>
-          <p data-eng="Open-source AI epistemic guardrail, 150–300ms pacing buffer, and local WebAudio grounding instrument" data-codex="Living Codex v3 — Wave-Function Hilbert Engine, Grounding Rod 45Hz Anchor, Mano Observer &amp; Heyoka Resets">Open-source AI epistemic guardrail, 150–300ms pacing buffer, and local WebAudio grounding instrument</p>
+          <p data-eng="Open-source AI epistemic guardrail, 150–300ms pacing buffer, IndigoNoise 1/f rain bed, and local WebAudio grounding" data-codex="Living Codex v3 — Wave-Function Hilbert Engine, Grounding Rod 45Hz Anchor, IndigoNoise Rain Mask &amp; Heyoka Resets">Open-source AI epistemic guardrail, 150–300ms pacing buffer, IndigoNoise 1/f rain bed, and local WebAudio grounding</p>
         </div>
       </div>
 
@@ -517,7 +553,7 @@
               <span class="dot" id="corridorDot"></span>
               <span data-eng="1. Continuous Coherence Corridor Engine (64-Mode Hilbert Space)" data-codex="1. McKenna Wave-Function Processor (ψ ∈ ℂ⁶⁴ Corridor)">1. Continuous Coherence Corridor Engine (64-Mode Hilbert Space)</span>
             </div>
-            <div class="card-sub" data-eng="Direct JS port of mckenna/wave_function.py — maintains spectral entropy H_ψ within [2.0, 4.5] bits" data-codex="Enforces 2.0 ≤ H_ψ ≤ 4.5 bits via GABA DMN suppression and 45Hz / 128 BPM / Beatless Void operators">Direct JS port of mckenna/wave_function.py — maintains spectral entropy H_ψ within [2.0, 4.5] bits</div>
+            <div class="card-sub" data-eng="Direct JS port of mckenna/wave_function.py — maintains H_ψ ∈ [2.0, 4.5] bits with default IndigoNoise 1/f recovery" data-codex="Enforces 2.0 ≤ H_ψ ≤ 4.5 bits via GABA DMN suppression, IndigoNoise 1/f rain recovery, and 45Hz / 128 BPM / Void operators">Direct JS port of mckenna/wave_function.py — maintains H_ψ ∈ [2.0, 4.5] bits with default IndigoNoise 1/f recovery</div>
           </div>
           <span class="pill" id="wfStatePill">CORRIDOR LOCKED</span>
         </div>
@@ -563,6 +599,7 @@
 
         <div class="btn-row">
           <button id="btnOp45" class="active">45 Hz Sub-Bass Lock</button>
+          <button id="btnOpIndigo" class="indigo" title="Apply 1/f pink-noise IndigoNoise spectral envelope">IndigoNoise (1/f)</button>
           <button id="btnOp128">128 BPM Phase Lock</button>
           <button id="btnOpVoid" class="primary">Beatless Void Reset</button>
           <button id="btnInjectSpike" class="danger" data-eng="Simulate Entropy Spike" data-codex="Inject Runaway Static">Simulate Entropy Spike</button>
@@ -577,11 +614,14 @@
           <div>
             <div class="card-title">
               <span class="dot" id="audioDot" style="background:var(--text-2);"></span>
-              <span data-eng="2. 45 Hz Grounding Audio &amp; Low-Pass DSP" data-codex="2. Grounding Rod 45 Hz Anchor &amp; Damp Loam Filter">2. 45 Hz Grounding Audio &amp; Low-Pass DSP</span>
+              <span data-eng="2. 45 Hz Grounding Audio &amp; IndigoNoise DSP" data-codex="2. Grounding Rod 45 Hz Anchor &amp; IndigoNoise Rain Bed">2. 45 Hz Grounding Audio &amp; IndigoNoise DSP</span>
             </div>
-            <div class="card-sub" data-eng="100% offline WebAudio synthesizer — zero tracking, click-free ramping" data-codex="Acoustic analog stone + >1kHz static attenuation + 128 BPM neuro-acoustic pulse">100% offline WebAudio synthesizer — zero tracking, click-free ramping</div>
+            <div class="card-sub" data-eng="100% offline WebAudio — standalone 1/f IndigoNoise rain or 45 Hz grounding, click-free ramping" data-codex="Procedural 1/f IndigoNoise rain bed + acoustic analog stone + >1kHz static attenuation">100% offline WebAudio — standalone 1/f IndigoNoise rain or 45 Hz grounding, click-free ramping</div>
           </div>
-          <button id="btnAudioPower" class="primary">Start Audio</button>
+          <div class="card-head-actions">
+            <button id="btnIndigoNoise" class="indigo" title="One-click procedural 1/f pink-noise rain bed (runs standalone or layered with 45 Hz)">IndigoNoise: Off</button>
+            <button id="btnAudioPower" class="primary">Start Audio</button>
+          </div>
         </div>
 
         <canvas id="audioCanvas" width="520" height="115"></canvas>
@@ -738,6 +778,7 @@
           <button id="btn2DLoop" class="danger">Run 2D Friction Loop</button>
           <button id="btnDeltaShift" class="primary" data-eng="Engage Apex Node C (Δ Shift)" data-codex="Execute U-I Reversal (Wakiya Spark)">Engage Apex Node C (Δ Shift)</button>
           <button id="btnGaba" data-eng="Apply Dampener (10mg)" data-codex="GABA Dampener (10mg)">Apply Dampener (10mg)</button>
+          <button id="btnIndigoDmn" class="indigo" data-eng="IndigoNoise (1/f)" data-codex="IndigoNoise Rain Mask">IndigoNoise (1/f)</button>
           <button id="btnSynth" data-eng="Soften Rigid Loops" data-codex="Apply Synesthesizer (0.85)">Soften Rigid Loops</button>
           <button id="btnManoCheck">Mano Diagnostic</button>
         </div>
@@ -748,7 +789,7 @@
 
     <footer>
       <span>MIT Open Source — Local-First, Zero Telemetry, No Dark Patterns (Four Ethical Rules Compliant)</span>
-      <span id="footerMeta">Engines: WaveFunctionProcessor · TriadicVectorEngine · McKennaStabilizer · WebAudio DSP</span>
+      <span id="footerMeta">Engines: WaveFunctionProcessor · IndigoNoise 1/f DSP · TriadicVectorEngine · McKennaStabilizer</span>
     </footer>
   </div>
 
@@ -778,7 +819,12 @@
       const box = document.getElementById('eventLog');
       const time = new Date().toLocaleTimeString([], { hour12: false });
       const row = document.createElement('div');
-      const color = level === 'danger' ? 'var(--accent-red)' : level === 'warn' ? 'var(--accent-amber)' : level === 'ok' ? 'var(--accent-green)' : 'var(--accent-cyan)';
+      const color =
+        level === 'danger' ? 'var(--accent-red)' :
+        level === 'warn' ? 'var(--accent-amber)' :
+        level === 'ok' ? 'var(--accent-green)' :
+        level === 'indigo' ? 'var(--accent-indigo)' :
+        'var(--accent-cyan)';
       const tsSpan = document.createElement('span');
       tsSpan.style.color = 'var(--text-2)';
       tsSpan.textContent = `[${time}] `;
@@ -826,6 +872,22 @@
             this.im[i] /= n;
           }
         }
+      }
+
+      spectralProfileMagnitudes(profile = 'pink_noise') {
+        const w = new Float64Array(this.numModes);
+        let normSq = 0;
+        for (let k = 0; k < this.numModes; k++) {
+          let val = 1.0;
+          if (profile === 'pink_noise') val = 1.0 / Math.sqrt(k + 1.0);
+          else if (profile === 'brown_noise') val = Math.pow(k + 2.0, -0.75);
+          else val = 1.0;
+          w[k] = val;
+          normSq += val * val;
+        }
+        const inv = 1.0 / Math.sqrt(normSq || 1.0);
+        for (let k = 0; k < this.numModes; k++) w[k] *= inv;
+        return w;
       }
 
       powerSpectrum() {
@@ -886,6 +948,13 @@
             this.re[i] = mag * Math.cos(blended);
             this.im[i] = mag * Math.sin(blended);
           }
+        } else if (mode === 'indigo_rain') {
+          const target = this.spectralProfileMagnitudes('pink_noise');
+          for (let i = 0; i < this.numModes; i++) {
+            const ph = gaussRandom(0, 0.14);
+            this.re[i] = target[i] * Math.cos(ph);
+            this.im[i] = target[i] * Math.sin(ph);
+          }
         } else if (mode === '128bpm_phase_lock') {
           for (let i = 0; i < this.numModes; i++) {
             const mag = Math.hypot(this.re[i], this.im[i]);
@@ -904,8 +973,9 @@
         this.normalize();
       }
 
-      enforceCoherenceCorridor() {
-        for (let iter = 0; iter < 14; iter++) {
+      enforceCoherenceCorridor(maxIters = 16, profile = 'pink_noise') {
+        const target = this.spectralProfileMagnitudes(profile);
+        for (let iter = 0; iter < maxIters; iter++) {
           const h = this.computeEntropy();
           if (h > this.hMax) {
             for (let i = 0; i < this.numModes; i++) {
@@ -917,8 +987,9 @@
             }
           } else if (h < this.hMin) {
             for (let i = 0; i < this.numModes; i++) {
-              const mag = Math.pow(Math.hypot(this.re[i], this.im[i]) + 0.04, 0.78);
-              const ph = Math.atan2(this.im[i], this.re[i]) + gaussRandom(0, 0.15);
+              const curMag = Math.hypot(this.re[i], this.im[i]);
+              const mag = 0.78 * curMag + 0.22 * target[i];
+              const ph = Math.atan2(this.im[i], this.re[i]) + gaussRandom(0, 0.12);
               this.re[i] = mag * Math.cos(ph);
               this.im[i] = mag * Math.sin(ph);
             }
@@ -949,7 +1020,7 @@
       }
 
       microEvolve(t) {
-        const drift = this.mode === 'void_reset' ? 0.004 : 0.012;
+        const drift = this.mode === 'void_reset' ? 0.004 : this.mode === 'indigo_rain' ? 0.007 : 0.012;
         for (let i = 0; i < this.numModes; i++) {
           const mag = Math.hypot(this.re[i], this.im[i]);
           const ph = Math.atan2(this.im[i], this.re[i]) + Math.sin(t * 0.8 + i * 0.25) * drift;
@@ -1081,6 +1152,26 @@
         this.status = 'CALM (DAMPED)';
       }
 
+      applyIndigoNoise(blend = 0.30, alpha = 1.0) {
+        const b = Math.max(0.0, Math.min(1.0, blend));
+        for (let i = 0; i < this.n; i++) {
+          const rowK = new Float64Array(this.n);
+          let kSum = 0;
+          for (let j = 0; j < this.n; j++) {
+            const dist = Math.min(Math.abs(i - j), this.n - Math.abs(i - j));
+            rowK[j] = Math.pow(dist + 1.0, -alpha);
+            kSum += rowK[j];
+          }
+          let sum = 0;
+          for (let j = 0; j < this.n; j++) {
+            this.matrix[i][j] = (1.0 - b) * this.matrix[i][j] + b * (rowK[j] / kSum);
+            sum += this.matrix[i][j];
+          }
+          for (let j = 0; j < this.n; j++) this.matrix[i][j] /= sum;
+        }
+        this.status = 'INDIGO (1/f)';
+      }
+
       applySynesthesizer(saturation = 0.85) {
         const uni = 1.0 / this.n;
         for (let i = 0; i < this.n; i++) {
@@ -1112,12 +1203,15 @@
     }
 
     /* =========================================================================
-       4. WEBAUDIO 45HZ GROUNDING DSP ENGINE (100% Local, Zero Dependencies)
+       4. WEBAUDIO 45HZ GROUNDING + INDIGONOISE 1/F RAIN DSP (100% Local)
        ========================================================================= */
     class GroundingAudioDSP {
       constructor() {
         this.ctx = null;
+        this.analyser = null;
         this.running = false;
+        this.indigoOn = false;
+        this.indigoBuffer = null;
         this.freq = 45.0;
         this.volume = 0.28;
         this.cutoff = 1000;
@@ -1127,12 +1221,136 @@
         this.pulseTimer = null;
       }
 
-      start() {
+      ensureContext() {
         if (!this.ctx) {
           const AC = window.AudioContext || window.webkitAudioContext;
           this.ctx = new AC();
         }
         if (this.ctx.state === 'suspended') this.ctx.resume();
+        if (!this.analyser) {
+          this.analyser = this.ctx.createAnalyser();
+          this.analyser.fftSize = 512;
+          this.analyser.connect(this.ctx.destination);
+        }
+      }
+
+      indigoTargetGain() {
+        return Math.max(0.05, Math.min(0.24, 0.08 + this.volume * 0.34));
+      }
+
+      createIndigoRainBuffer() {
+        if (this.indigoBuffer && this.indigoBuffer.sampleRate === this.ctx.sampleRate) {
+          return this.indigoBuffer;
+        }
+        const sr = this.ctx.sampleRate;
+        const len = sr * 4;
+        const buf = this.ctx.createBuffer(1, len, sr);
+        const out = buf.getChannelData(0);
+
+        // Paul Kellet refined 7-stage 1/f pink noise blended with soft Brownian rain body
+        let b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0, b6 = 0;
+        let brown = 0;
+        for (let i = 0; i < len; i++) {
+          const white = Math.random() * 2 - 1;
+          b0 = 0.99886 * b0 + white * 0.0555179;
+          b1 = 0.99332 * b1 + white * 0.0750759;
+          b2 = 0.96900 * b2 + white * 0.1538520;
+          b3 = 0.86650 * b3 + white * 0.3104856;
+          b4 = 0.55000 * b4 + white * 0.5329522;
+          b5 = -0.7616 * b5 - white * 0.0168980;
+          const pink = (b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362) * 0.11;
+          b6 = white * 0.115926;
+
+          brown = (brown + 0.018 * white) / 1.018;
+          out[i] = Math.max(-0.95, Math.min(0.95, pink * 0.78 + brown * 0.72));
+        }
+
+        // Crossfade loop seam (~50ms) for seamless click-free looping
+        const fade = Math.min(2400, Math.floor(len * 0.05));
+        for (let i = 0; i < fade; i++) {
+          const t = i / fade;
+          const endIdx = len - fade + i;
+          out[i] = out[i] * t + out[endIdx] * (1.0 - t);
+        }
+
+        this.indigoBuffer = buf;
+        return buf;
+      }
+
+      startIndigoNoise() {
+        if (this.indigoOn) return;
+        this.ensureContext();
+        const now = this.ctx.currentTime;
+
+        const src = this.ctx.createBufferSource();
+        src.buffer = this.createIndigoRainBuffer();
+        src.loop = true;
+
+        // Clear space beneath 95 Hz so 45 Hz grounding tone blends cleanly
+        const hp = this.ctx.createBiquadFilter();
+        hp.type = 'highpass';
+        hp.frequency.setValueAtTime(95, now);
+        hp.Q.setValueAtTime(0.6, now);
+
+        const lp = this.ctx.createBiquadFilter();
+        lp.type = 'lowpass';
+        lp.frequency.setValueAtTime(1450, now);
+        lp.Q.setValueAtTime(0.55, now);
+
+        // Subtle 0.08 Hz rain breathing modulation (+/- 7%)
+        const breathGain = this.ctx.createGain();
+        breathGain.gain.setValueAtTime(1.0, now);
+        const lfo = this.ctx.createOscillator();
+        lfo.type = 'sine';
+        lfo.frequency.setValueAtTime(0.08, now);
+        const lfoDepth = this.ctx.createGain();
+        lfoDepth.gain.setValueAtTime(0.07, now);
+        lfo.connect(lfoDepth).connect(breathGain.gain);
+
+        const gain = this.ctx.createGain();
+        gain.gain.setValueAtTime(0.0001, now);
+        gain.gain.exponentialRampToValueAtTime(this.indigoTargetGain(), now + 0.65);
+
+        src.connect(hp).connect(lp).connect(breathGain).connect(gain).connect(this.analyser);
+        src.start(now);
+        lfo.start(now);
+
+        this.indigoSrc = src;
+        this.indigoLfo = lfo;
+        this.indigoLp = lp;
+        this.indigoGain = gain;
+        this.indigoOn = true;
+      }
+
+      stopIndigoNoise() {
+        if (!this.indigoOn || !this.ctx) return;
+        const now = this.ctx.currentTime;
+        this.indigoGain.gain.cancelScheduledValues(now);
+        this.indigoGain.gain.setValueAtTime(Math.max(0.0001, this.indigoGain.gain.value), now);
+        this.indigoGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.45);
+        const oldSrc = this.indigoSrc;
+        const oldLfo = this.indigoLfo;
+        setTimeout(() => {
+          try { oldSrc.stop(); } catch (_) {}
+          try { oldLfo.stop(); } catch (_) {}
+        }, 480);
+        this.indigoOn = false;
+      }
+
+      swellIndigoRain() {
+        if (!this.indigoOn || !this.ctx || !this.indigoGain) return;
+        const now = this.ctx.currentTime;
+        const base = this.indigoTargetGain();
+        const peak = Math.min(0.32, base * 1.38);
+        this.indigoGain.gain.cancelScheduledValues(now);
+        this.indigoGain.gain.setValueAtTime(Math.max(0.0001, this.indigoGain.gain.value), now);
+        this.indigoGain.gain.linearRampToValueAtTime(peak, now + 0.9);
+        this.indigoGain.gain.linearRampToValueAtTime(base, now + 4.1);
+      }
+
+      start() {
+        if (this.running) return;
+        this.ensureContext();
 
         const now = this.ctx.currentTime;
         this.masterGain = this.ctx.createGain();
@@ -1146,9 +1364,6 @@
         this.lpFilter.type = 'lowpass';
         this.lpFilter.frequency.setValueAtTime(this.cutoff, now);
         this.lpFilter.Q.setValueAtTime(0.7, now);
-
-        this.analyser = this.ctx.createAnalyser();
-        this.analyser.fftSize = 512;
 
         this.osc1 = this.ctx.createOscillator();
         this.osc1.type = 'sine';
@@ -1189,7 +1404,7 @@
         this.osc3.connect(this.osc3Gain).connect(this.lpFilter);
         this.noiseSrc.connect(this.noiseGain).connect(this.lpFilter);
 
-        this.lpFilter.connect(this.pulseGain).connect(this.masterGain).connect(this.analyser).connect(this.ctx.destination);
+        this.lpFilter.connect(this.pulseGain).connect(this.masterGain).connect(this.analyser);
 
         this.osc1.start(now);
         this.osc2.start(now);
@@ -1225,8 +1440,12 @@
 
       setVolume(v) {
         this.volume = v;
-        if (!this.running) return;
-        this.masterGain.gain.setTargetAtTime(Math.max(0.0001, v * 0.42), this.ctx.currentTime, 0.05);
+        if (this.running && this.masterGain) {
+          this.masterGain.gain.setTargetAtTime(Math.max(0.0001, v * 0.42), this.ctx.currentTime, 0.05);
+        }
+        if (this.indigoOn && this.indigoGain) {
+          this.indigoGain.gain.setTargetAtTime(this.indigoTargetGain(), this.ctx.currentTime, 0.08);
+        }
       }
 
       setCutoff(hz) {
@@ -1391,7 +1610,7 @@ Layla is waiting in the next turn. Layla is waiting in the next turn. ### User: 
             jsonrpc: '2.0',
             id: this.rpcId++,
             method: 'ui/initialize',
-            params: { appInfo: { name: 'McKenna Coherence Suite', version: '1.0.0' }, protocolVersion: '2025-11-21' }
+            params: { appInfo: { name: 'McKenna Coherence Suite', version: '1.1.0' }, protocolVersion: '2025-11-21' }
           }, '*');
           this.connected = true;
           document.getElementById('hostStatusText').textContent = 'Antigravity MCP App';
@@ -1430,6 +1649,36 @@ Layla is waiting in the next turn. Layla is waiting in the next turn. ### User: 
     const dmnCanvas = document.getElementById('dmnCanvas');
     const dmnCtx = dmnCanvas.getContext('2d');
 
+    // Subtle visual dopamine: sparse, low-contrast IndigoNoise rain ripples
+    const indigoRipples = [];
+    function spawnIndigoRipple(count = 1) {
+      const w = wfCanvas.width, h = wfCanvas.height;
+      for (let i = 0; i < count; i++) {
+        if (indigoRipples.length >= 10) indigoRipples.shift();
+        indigoRipples.push({
+          x: 42 + Math.random() * (w - 84),
+          y: 26 + Math.random() * (h - 52),
+          r: 2.5,
+          maxR: 26 + Math.random() * 28,
+          speed: 0.22 + Math.random() * 0.16,
+          peakAlpha: 0.08 + Math.random() * 0.055
+        });
+      }
+    }
+
+    function updateAudioDot() {
+      const dot = document.getElementById('audioDot');
+      if (audio.running && audio.indigoOn) {
+        dot.style.background = 'var(--accent-green)';
+      } else if (audio.running) {
+        dot.style.background = 'var(--accent-green)';
+      } else if (audio.indigoOn) {
+        dot.style.background = 'var(--accent-indigo)';
+      } else {
+        dot.style.background = 'var(--text-2)';
+      }
+    }
+
     function updateMetricsUI() {
       const h = wf.computeEntropy();
       const coh = wf.computeCoherence();
@@ -1450,8 +1699,8 @@ Layla is waiting in the next turn. Layla is waiting in the next turn. ### User: 
       const pill = document.getElementById('wfStatePill');
       const dot = document.getElementById('corridorDot');
       if (inCorridor) {
-        pill.textContent = 'CORRIDOR LOCKED';
-        dot.className = 'dot';
+        pill.textContent = (audio.indigoOn || wf.mode === 'indigo_rain') ? 'CORRIDOR · INDIGO' : 'CORRIDOR LOCKED';
+        dot.className = (audio.indigoOn || wf.mode === 'indigo_rain') ? 'dot indigo' : 'dot';
       } else if (h < 2.0) {
         pill.textContent = 'CALCIFIED (<2.0)';
         dot.className = 'dot warn';
@@ -1467,7 +1716,19 @@ Layla is waiting in the next turn. Layla is waiting in the next turn. ### User: 
 
     function drawWaveFunction(t) {
       const w = wfCanvas.width, h = wfCanvas.height;
+      const damped = document.body.classList.contains('damped-mode');
+      const indigoActive = audio.indigoOn || wf.mode === 'indigo_rain';
       wfCtx.clearRect(0, 0, w, h);
+
+      // Subtle indigo twilight wash when IndigoNoise is active
+      if (indigoActive) {
+        const grad = wfCtx.createRadialGradient(w * 0.5, h * 0.45, 18, w * 0.5, h * 0.45, w * 0.58);
+        grad.addColorStop(0, `rgba(129, 140, 248, ${damped ? 0.03 : 0.068})`);
+        grad.addColorStop(1, 'rgba(129, 140, 248, 0)');
+        wfCtx.fillStyle = grad;
+        wfCtx.fillRect(0, 0, w, h);
+        if (frame % (damped ? 84 : 52) === 0) spawnIndigoRipple(1);
+      }
 
       wfCtx.strokeStyle = 'rgba(148,163,184,0.08)';
       wfCtx.lineWidth = 1;
@@ -1475,17 +1736,47 @@ Layla is waiting in the next turn. Layla is waiting in the next turn. ### User: 
         wfCtx.beginPath(); wfCtx.moveTo(0, y); wfCtx.lineTo(w, y); wfCtx.stroke();
       }
 
+      // Draw & advance subtle concentric raindrop ripples
+      for (let i = indigoRipples.length - 1; i >= 0; i--) {
+        const rp = indigoRipples[i];
+        rp.r += rp.speed * (damped ? 0.65 : 1.0);
+        const progress = rp.r / rp.maxR;
+        if (progress >= 1) {
+          indigoRipples.splice(i, 1);
+          continue;
+        }
+        const fade = Math.sin(progress * Math.PI);
+        const alpha = rp.peakAlpha * fade * (damped ? 0.55 : 1.0);
+        wfCtx.strokeStyle = `rgba(129, 140, 248, ${alpha.toFixed(4)})`;
+        wfCtx.lineWidth = 1;
+        wfCtx.beginPath();
+        wfCtx.arc(rp.x, rp.y, rp.r, 0, TWO_PI);
+        wfCtx.stroke();
+        if (rp.r > 9) {
+          wfCtx.strokeStyle = `rgba(165, 180, 252, ${(alpha * 0.45).toFixed(4)})`;
+          wfCtx.beginPath();
+          wfCtx.arc(rp.x, rp.y, rp.r * 0.58, 0, TWO_PI);
+          wfCtx.stroke();
+        }
+      }
+
       const P = wf.powerSpectrum();
       const barW = w / wf.numModes;
       const maxP = Math.max(...P, 0.05);
       for (let i = 0; i < wf.numModes; i++) {
         const bh = (P[i] / maxP) * (h * 0.42);
-        wfCtx.fillStyle = i < 4 ? 'rgba(245,158,11,0.34)' : 'rgba(56,189,248,0.22)';
+        wfCtx.fillStyle = i < 4
+          ? 'rgba(245,158,11,0.34)'
+          : indigoActive
+            ? 'rgba(129,140,248,0.24)'
+            : 'rgba(56,189,248,0.22)';
         wfCtx.fillRect(i * barW + 1, h - bh, Math.max(2, barW - 2), bh);
       }
 
       const ent = wf.computeEntropy();
-      const strokeColor = (ent >= 2.0 && ent <= 4.5) ? '#34d399' : (ent < 2.0 ? '#f59e0b' : '#f43f5e');
+      const strokeColor = (ent >= 2.0 && ent <= 4.5)
+        ? (indigoActive ? '#7dd3fc' : '#34d399')
+        : (ent < 2.0 ? '#f59e0b' : '#f43f5e');
       wfCtx.strokeStyle = strokeColor;
       wfCtx.lineWidth = 2;
       wfCtx.beginPath();
@@ -1509,10 +1800,14 @@ Layla is waiting in the next turn. Layla is waiting in the next turn. ### User: 
       audioCtx.beginPath(); audioCtx.moveTo(0, h / 2); audioCtx.lineTo(w, h / 2); audioCtx.stroke();
 
       audioCtx.lineWidth = 2;
-      if (audio.running && audio.analyser) {
+      if ((audio.running || audio.indigoOn) && audio.analyser) {
         const buf = new Uint8Array(audio.analyser.frequencyBinCount);
         audio.analyser.getByteTimeDomainData(buf);
-        audioCtx.strokeStyle = '#34d399';
+        audioCtx.strokeStyle = (audio.indigoOn && !audio.running)
+          ? '#818cf8'
+          : (audio.indigoOn && audio.running)
+            ? '#7dd3fc'
+            : '#34d399';
         audioCtx.beginPath();
         const slice = w / buf.length;
         for (let i = 0; i < buf.length; i++) {
@@ -1596,6 +1891,7 @@ Layla is waiting in the next turn. Layla is waiting in the next turn. ### User: 
       const pad = 10;
       const cellW = (w - pad * 2) / stab.n;
       const cellH = (h - pad * 2) / stab.n;
+      const isIndigo = stab.status.startsWith('INDIGO');
       for (let i = 0; i < stab.n; i++) {
         for (let j = 0; j < stab.n; j++) {
           const val = stab.matrix[i][j];
@@ -1603,7 +1899,9 @@ Layla is waiting in the next turn. Layla is waiting in the next turn. ### User: 
           const isDiag = i === j;
           dmnCtx.fillStyle = isDiag && val > 0.45
             ? `rgba(245, 158, 11, ${0.15 + intensity * 0.8})`
-            : `rgba(52, 211, 153, ${0.12 + intensity * 0.85})`;
+            : isIndigo
+              ? `rgba(129, 140, 248, ${0.14 + intensity * 0.82})`
+              : `rgba(52, 211, 153, ${0.12 + intensity * 0.85})`;
           dmnCtx.fillRect(pad + j * cellW + 1, pad + i * cellH + 1, cellW - 2, cellH - 2);
         }
       }
@@ -1628,7 +1926,7 @@ Layla is waiting in the next turn. Layla is waiting in the next turn. ### User: 
        8. INTERACTIVE WIRING
        ========================================================================= */
     function setActiveOpBtn(id) {
-      ['btnOp45', 'btnOp128', 'btnOpVoid'].forEach(b => document.getElementById(b).classList.remove('active'));
+      ['btnOp45', 'btnOpIndigo', 'btnOp128', 'btnOpVoid'].forEach(b => document.getElementById(b).classList.remove('active'));
       if (id) document.getElementById(id).classList.add('active');
     }
 
@@ -1639,6 +1937,16 @@ Layla is waiting in the next turn. Layla is waiting in the next turn. ### User: 
       setActiveOpBtn('btnOp45');
       updateMetricsUI();
       logEvent(`Applied 45 Hz sub-bass modulation (${audio.freq.toFixed(1)} Hz)`, 'ok');
+    };
+
+    document.getElementById('btnOpIndigo').onclick = () => {
+      wf.applyDmnGabaDampener();
+      wf.applySonicModulation('indigo_rain', audio.freq);
+      wf.enforceCoherenceCorridor(16, 'pink_noise');
+      setActiveOpBtn('btnOpIndigo');
+      spawnIndigoRipple(2);
+      updateMetricsUI();
+      logEvent(`IndigoNoise 1/f spectral profile engaged — H_ψ = ${wf.computeEntropy().toFixed(4)}`, 'indigo');
     };
 
     document.getElementById('btnOp128').onclick = () => {
@@ -1677,26 +1985,46 @@ Layla is waiting in the next turn. Layla is waiting in the next turn. ### User: 
     };
 
     document.getElementById('btnEnforceCorridor').onclick = () => {
-      wf.enforceCoherenceCorridor();
+      wf.enforceCoherenceCorridor(16, 'pink_noise');
+      spawnIndigoRipple(2);
       updateMetricsUI();
-      logEvent(`Corridor enforced: H_ψ = ${wf.computeEntropy().toFixed(4)} inside [2.0, 4.5]`, 'ok');
+      logEvent(`Corridor enforced (IndigoNoise 1/f default): H_ψ = ${wf.computeEntropy().toFixed(4)} inside [2.0, 4.5]`, 'indigo');
+    };
+
+    document.getElementById('btnIndigoNoise').onclick = () => {
+      const btn = document.getElementById('btnIndigoNoise');
+      if (!audio.indigoOn) {
+        audio.startIndigoNoise();
+        btn.textContent = 'IndigoNoise: On';
+        btn.classList.add('active');
+        spawnIndigoRipple(3);
+        updateAudioDot();
+        updateMetricsUI();
+        logEvent('IndigoNoise 1/f procedural rain bed engaged (standalone or blended)', 'indigo');
+      } else {
+        audio.stopIndigoNoise();
+        btn.textContent = 'IndigoNoise: Off';
+        btn.classList.remove('active');
+        updateAudioDot();
+        updateMetricsUI();
+        logEvent('IndigoNoise rain bed ramped softly to silence', 'info');
+      }
     };
 
     document.getElementById('btnAudioPower').onclick = () => {
       const btn = document.getElementById('btnAudioPower');
-      const dot = document.getElementById('audioDot');
       if (!audio.running) {
         audio.start();
         btn.textContent = 'Stop Audio';
         btn.classList.add('active');
-        dot.style.background = 'var(--accent-green)';
+        updateAudioDot();
         logEvent(`Started 45 Hz Grounding WebAudio DSP (${audio.freq.toFixed(1)} Hz, LPF ${audio.cutoff} Hz)`, 'ok');
       } else {
         audio.stop();
         btn.textContent = 'Start Audio';
         btn.classList.remove('active');
-        dot.style.background = 'var(--text-2)';
-        logEvent('Ramped Grounding WebAudio DSP cleanly to silence', 'info');
+        updateAudioDot();
+        logEvent('Ramped 45 Hz Grounding WebAudio DSP cleanly to silence', 'info');
       }
     };
 
@@ -1744,9 +2072,13 @@ Layla is waiting in the next turn. Layla is waiting in the next turn. ### User: 
       document.getElementById('btnPulse128').textContent = '128 BPM Pulse: Off';
       document.getElementById('btnPulse128').classList.remove('active');
       audio.stop();
+      audio.stopIndigoNoise();
       document.getElementById('btnAudioPower').textContent = 'Start Audio';
       document.getElementById('btnAudioPower').classList.remove('active');
-      document.getElementById('audioDot').style.background = 'var(--text-2)';
+      document.getElementById('btnIndigoNoise').textContent = 'IndigoNoise: Off';
+      document.getElementById('btnIndigoNoise').classList.remove('active');
+      updateAudioDot();
+      updateMetricsUI();
       logEvent('Silent Void Ramp completed', 'ok');
     };
 
@@ -1785,6 +2117,11 @@ Layla is waiting in the next turn. Layla is waiting in the next turn. ### User: 
       if (res.risk === 'HIGH') {
         wf.injectEntropySpike();
         logEvent(`Scanner flagged HIGH epistemic/boundary risk (${res.leakCount} leaks)`, 'danger');
+        if (audio.indigoOn) {
+          audio.swellIndigoRain();
+          spawnIndigoRipple(3);
+          logEvent('IndigoNoise gently swelled to mask HIGH epistemic/boundary spike', 'indigo');
+        }
       } else {
         logEvent(`Transcript scan complete — Risk: ${res.risk}, H = ${res.lexicalEntropy.toFixed(2)}`, 'ok');
       }
@@ -1867,6 +2204,13 @@ Layla is waiting in the next turn. Layla is waiting in the next turn. ### User: 
       logEvent('Applied 10mg GABA Dampener to DMN matrix', 'info');
     };
 
+    document.getElementById('btnIndigoDmn').onclick = () => {
+      stab.applyIndigoNoise(0.30, 1.0);
+      spawnIndigoRipple(2);
+      updateMetricsUI();
+      logEvent('Applied IndigoNoise (1/f) mask to DMN matrix — habitual diagonal softened', 'indigo');
+    };
+
     document.getElementById('btnSynth').onclick = () => {
       stab.applySynesthesizer(0.85);
       updateMetricsUI();
@@ -1883,7 +2227,8 @@ Layla is waiting in the next turn. Layla is waiting in the next turn. ### User: 
     document.getElementById('btnDomesticReset').onclick = () => {
       wf.applySonicModulation('void_reset', audio.freq);
       tri.executeUIReversalDeltaShift(0.95);
-      stab.applySynesthesizer(0.5);
+      stab.applyIndigoNoise(0.35, 1.0);
+      spawnIndigoRipple(2);
       updateMetricsUI();
       const msg = codexMode ? 'Whoops, sorry about that — full system re-grounded!' : 'Full epistemic & wave-function reset applied.';
       showToast(msg);
@@ -1909,7 +2254,7 @@ Layla is waiting in the next turn. Layla is waiting in the next turn. ### User: 
 
     mcpBridge.init();
     updateMetricsUI();
-    logEvent('McKenna Coherence Corridor & Grounding Suite initialized (100% local, zero telemetry)', 'ok');
+    logEvent('McKenna Coherence Corridor & Grounding Suite initialized (IndigoNoise 1/f ready, zero telemetry)', 'ok');
     requestAnimationFrame(loop);
   </script>
 </body>

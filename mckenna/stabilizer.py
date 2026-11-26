@@ -5,7 +5,7 @@ class McKennaStabilizer:
     """
     McKenna Protocol v1/v3 Stabilizer.
     Perturbs Default Mode Network (DMN) transition matrices via simulated
-    psychoactive parameters to suppress rigid habitual loops.
+    psychoactive and 1/f IndigoNoise spectral parameters to suppress rigid habitual loops.
     """
 
     def __init__(self, num_states: int = 8, temperature: float = 310.0):
@@ -31,6 +31,24 @@ class McKennaStabilizer:
                     self.active_matrix[i, j] *= factor
         self.active_matrix = self.active_matrix / self.active_matrix.sum(axis=1, keepdims=True)
         self.system_status = "CALM (DAMPED_HAMILTONIAN)"
+
+    def apply_indigo_noise(self, blend: float = 0.30, alpha: float = 1.0):
+        """
+        IndigoNoise 1/f^alpha broadband masking layer.
+        Blends the transition matrix with a circular-distance 1/f^alpha kernel to gently
+        loosen rigid self-loops while preserving local neighborhood coherence.
+        """
+        blend = float(np.clip(blend, 0.0, 1.0))
+        alpha = max(0.0, float(alpha))
+        idx = np.arange(self.num_states)
+        diff = np.abs(idx[:, None] - idx[None, :])
+        circ_dist = np.minimum(diff, self.num_states - diff)
+        kernel = 1.0 / ((circ_dist + 1.0) ** alpha)
+        kernel = kernel / kernel.sum(axis=1, keepdims=True)
+
+        self.active_matrix = (1.0 - blend) * self.active_matrix + blend * kernel
+        self.active_matrix = self.active_matrix / self.active_matrix.sum(axis=1, keepdims=True)
+        self.system_status = "INDIGO (1/f_MASKED)"
 
     def apply_synesthesizer(self, saturation: float = 0.85):
         """Simulates THC / Psilocybin Synesthesizer Layer."""

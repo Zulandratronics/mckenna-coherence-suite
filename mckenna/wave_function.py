@@ -42,6 +42,26 @@ class WaveFunctionProcessor:
         mean_vector = np.mean(np.exp(1j * phases))
         return float(np.abs(mean_vector))
 
+    def _spectral_profile_magnitudes(self, profile: str = "pink_noise") -> np.ndarray:
+        """
+        Return a unit-norm magnitude envelope for low-entropy corridor recovery:
+          - 'pink_noise' (default / IndigoNoise): 1/f power spectrum (|w_k| ~ (k+1)^-0.5)
+          - 'brown_noise': warmer low-frequency rolloff (|w_k| ~ (k+2)^-0.75)
+          - 'uniform': flat white-noise spectrum (optional baseline for A/B testing)
+        """
+        k = np.arange(self.num_modes, dtype=float)
+        if profile == "pink_noise":
+            w = 1.0 / np.sqrt(k + 1.0)
+        elif profile == "brown_noise":
+            w = 1.0 / ((k + 2.0) ** 0.75)
+        elif profile == "uniform":
+            w = np.ones(self.num_modes, dtype=float)
+        else:
+            raise ValueError(
+                f"Unknown corridor profile '{profile}'. Expected 'pink_noise', 'brown_noise', or 'uniform'."
+            )
+        return w / np.linalg.norm(w)
+
     def apply_dmn_gaba_dampener(self, dmn_indices=None):
         if dmn_indices is None:
             dmn_indices = [0, 1, 2, 3]
@@ -60,6 +80,11 @@ class WaveFunctionProcessor:
         elif mode == "128bpm_phase_lock":
             harmonic_phase = np.linspace(0, 4 * np.pi, self.num_modes)
             self.psi = np.abs(self.psi) * np.exp(1j * harmonic_phase)
+        elif mode == "indigo_rain":
+            pink_mag = self._spectral_profile_magnitudes("pink_noise")
+            blended_mag = 0.65 * np.abs(self.psi) + 0.35 * pink_mag
+            gentle_phase = np.angle(self.psi) + self._rng.normal(0, 0.08, self.num_modes)
+            self.psi = blended_mag * np.exp(1j * gentle_phase)
         elif mode == "void_reset":
             self.psi = (1.0 / np.sqrt(self.num_modes)) * np.exp(1j * 0.0)
 
@@ -67,16 +92,18 @@ class WaveFunctionProcessor:
         if norm > 1e-12:
             self.psi /= norm
 
-    def enforce_coherence_corridor(self, max_iters: int = 16):
+    def enforce_coherence_corridor(self, max_iters: int = 16, profile: str = "pink_noise"):
         """
         Keep spectral entropy H_psi inside [h_min, h_max]:
           - If H_psi > h_max (divergent/flat spectrum), sharpen magnitudes with a gentle
             spectral focusing taper so even uniform states converge into the corridor.
-          - If H_psi < h_min (calcified/looping spectrum), blend magnitudes toward uniform
-            alongside phase jitter so power redistributes out of the collapsed attractor.
+          - If H_psi < h_min (calcified/looping spectrum), blend magnitudes with the
+            IndigoNoise 1/f pink-noise profile by default (or optional 'brown_noise' /
+            'uniform' profile) alongside gentle phase jitter so power redistributes out
+            of the collapsed attractor without flat white-noise disruption.
         """
         taper = np.exp(-0.05 * np.arange(self.num_modes))
-        uniform_mag = 1.0 / np.sqrt(self.num_modes)
+        recovery_mag = self._spectral_profile_magnitudes(profile)
 
         for _ in range(max_iters):
             entropy = self.compute_entropy()
@@ -85,8 +112,8 @@ class WaveFunctionProcessor:
                 phases = np.angle(self.psi)
                 self.psi = mags * np.exp(1j * phases)
             elif entropy < self.h_min:
-                mags = 0.75 * (np.abs(self.psi) ** 0.8) + 0.25 * uniform_mag
-                jitter = self._rng.normal(0, 0.15, self.num_modes)
+                mags = 0.72 * (np.abs(self.psi) ** 0.82) + 0.28 * recovery_mag
+                jitter = self._rng.normal(0, 0.12, self.num_modes)
                 phases = np.angle(self.psi) + jitter
                 self.psi = mags * np.exp(1j * phases)
             else:
@@ -95,13 +122,14 @@ class WaveFunctionProcessor:
             if norm > 1e-12:
                 self.psi /= norm
 
-    def step_simulation(self, mode: str = "128bpm_phase_lock"):
+    def step_simulation(self, mode: str = "128bpm_phase_lock", profile: str = "pink_noise"):
         self.apply_dmn_gaba_dampener()
         self.apply_sonic_modulation(mode=mode)
-        self.enforce_coherence_corridor()
+        self.enforce_coherence_corridor(profile=profile)
 
         return {
             "entropy": round(self.compute_entropy(), 4),
             "coherence": round(self.compute_coherence(), 4),
             "spectral_norm": round(float(np.linalg.norm(self.psi)), 4),
+            "profile": profile,
         }

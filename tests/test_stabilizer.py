@@ -22,6 +22,23 @@ def test_gaba_dampener_preserves_stochasticity_and_lowers_entropy():
     assert after < before
 
 
+def test_indigo_noise_loosens_habitual_loops_while_preserving_local_structure():
+    stab = McKennaStabilizer(num_states=8)
+    before_diag = float(np.mean(np.diag(stab.active_matrix)))
+    before_entropy = stab.run_mano_diagnostic(threshold=0.0)["entropy"]
+
+    stab.apply_indigo_noise(blend=0.35, alpha=1.0)
+    after_diag = float(np.mean(np.diag(stab.active_matrix)))
+    after_entropy = stab.run_mano_diagnostic(threshold=0.0)["entropy"]
+
+    assert np.allclose(stab.active_matrix.sum(axis=1), 1.0, atol=1e-9)
+    assert stab.system_status == "INDIGO (1/f_MASKED)"
+    assert after_diag < before_diag
+    assert after_entropy > before_entropy
+    # Local 1/f structure: adjacent neighbor (d=1) stays stronger than opposite state (d=4)
+    assert stab.active_matrix[0, 1] > stab.active_matrix[0, 4]
+
+
 def test_synesthesizer_dissolves_habitual_diagonal():
     stab = McKennaStabilizer(num_states=8)
     before_diag = float(np.mean(np.diag(stab.active_matrix)))
