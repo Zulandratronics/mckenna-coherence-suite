@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "mckenna-coherence-suite"
-version = "1.0.0"
-description = "Open-source (MIT) AI epistemic safety guardrail, control-token boundary degradation scanner, Coherence Corridor wave-function engine, and offline 45 Hz grounding instrument."
+version = "1.1.0"
+description = "Open-source (MIT) AI epistemic safety guardrail, control-token boundary degradation scanner, Coherence Corridor wave-function engine, IndigoNoise 1/f rain masking, and offline 45 Hz grounding instrument."
 readme = "README.md"
 license = "MIT"
 license-files = ["LICENSE"]
@@ -19,6 +19,8 @@ keywords = [
   "control-token-degradation",
   "epistemic-safety",
   "coherence-corridor",
+  "indigonoise",
+  "pink-noise",
   "mcp",
 ]
 classifiers = [
@@ -51,6 +53,7 @@ dev = [
 
 [project.scripts]
 mckenna-scan = "mckenna.scanner:main"
+mckenna-benchmark = "mckenna.benchmark:main"
 
 [tool.setuptools.packages.find]
 include = ["mckenna*"]

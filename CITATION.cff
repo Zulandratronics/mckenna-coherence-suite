@@ -10,23 +10,26 @@ doi: "10.5281/zenodo.24412916"
 identifiers:
   - type: doi
     value: "10.5281/zenodo.24412916"
-    description: "Zenodo archive for v1.0.0 release"
+    description: "Zenodo archive for McKenna Coherence Suite"
 repository-code: "https://github.com/Zulandratronics/mckenna-coherence-suite"
 url: "https://zulandratronics.github.io/mckenna-coherence-suite/"
 abstract: >-
   An MIT-licensed, local-first, zero-telemetry open-source AI safety and cognitive
   pacing toolkit combining an AI Boundary Degradation and Epistemic Loop Scanner,
-  a 64-mode Hilbert Coherence Corridor telemetry engine, an 8x8 transition-matrix
-  loop dampener, a 150-300 ms cognitive pacing buffer, an offline 45 Hz WebAudio
+  a 64-mode Hilbert Coherence Corridor telemetry engine with default IndigoNoise
+  1/f pink-noise spectral recovery, an 8x8 transition-matrix loop dampener, a
+  150-300 ms cognitive pacing buffer, an offline 45 Hz & IndigoNoise WebAudio
   grounding instrument, and a Python Model Context Protocol (MCP) UI server.
 keywords:
   - ai-safety
   - llm-evaluation
   - control-token-degradation
   - epistemic-safety
+  - indigonoise
+  - pink-noise
   - mcp-server
   - local-first
   - webaudio
 license: MIT
-version: "1.0.0"
-date-released: "2026-11-21"
+version: "1.1.0"
+date-released: "2026-11-26"
